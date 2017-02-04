@@ -17,7 +17,6 @@ public class FourthStepPanel extends StepPanel {
   
   public FourthStepPanel(String title, Employee employee) {
     super(title, employee);
-    System.out.println("Parent: "+employee.toString());
   }
 
   @Override

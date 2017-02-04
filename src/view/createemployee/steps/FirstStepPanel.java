@@ -1,5 +1,6 @@
 package view.createemployee.steps;
 
+import java.awt.Font;
 import javax.swing.JLabel;
 import model.Employee;
 
@@ -20,7 +21,9 @@ public class FirstStepPanel extends StepPanel {
             + "2.Select the department and the job title<br>"
             + "3.Set the employee's salary between the given limits</html>");
     add(instructions);
-    instructions.setSize(200, 100);
+    instructions.setFont(new Font("Arial",1,20));
+    
+
   }
   
   @Override

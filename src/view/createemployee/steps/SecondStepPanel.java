@@ -5,6 +5,9 @@
  */
 package view.createemployee.steps;
 
+import java.awt.BorderLayout;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import model.Employee;
 
 /**
@@ -17,12 +20,16 @@ public class SecondStepPanel extends StepPanel {
   
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
-    System.out.println("Parent: "+employee.toString());
   }
 
   @Override
   public void initComponents() {
-    ;
+    JPanel pn=new JPanel();
+    pn.setLayout(new BorderLayout());
+    JTextField tfFirstName = new JTextField();
+    tfFirstName.setColumns(15);
+    pn.add(tfFirstName, BorderLayout.NORTH);
+    add(pn);
   }
 
   @Override
