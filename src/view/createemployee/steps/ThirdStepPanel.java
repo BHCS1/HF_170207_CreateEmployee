@@ -6,6 +6,7 @@
 package view.createemployee.steps;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import model.Department;
 import model.Employee;
@@ -31,21 +32,23 @@ public class ThirdStepPanel extends StepPanel {
   @Override
   public void initComponents() {
     try {
+      ArrayList<Department> depList=Department.getAll();//new ArrayList<>();
 //      int jobListSize=Job.getAll().size();
 //      jobsList = new String [jobListSize];
 //      for (int i = 0; i < jobListSize; i++) 
 //        jobsList[i]=Job.getAll().get(i).getTitle();
 //      
-      int depListSize=Department.getAll().size();
+      int depListSize=depList.size();//Department.getAll().size();
       depsList = new String [depListSize];
       for (int i = 0; i < depListSize; i++) {
-        depsList[i]=Department.getAll().get(i).toString();
+        depsList[i]=depList.get(i).toString();//Department.getAll().get(i).toString();
         System.out.println(depsList[i]);
       }
     } catch (ClassNotFoundException ex) {
       System.out.println("?");
     } catch (SQLException ex) {
-      System.out.println("H??");
+      ex.printStackTrace();
+      //System.out.println("H??");
       }
   //  JComboBox cbJobs=new JComboBox(jobsList);
     JComboBox cbDeps=new JComboBox(depsList);
