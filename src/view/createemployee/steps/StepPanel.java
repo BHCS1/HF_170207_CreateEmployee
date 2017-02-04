@@ -2,7 +2,6 @@ package view.createemployee.steps;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLClientInfoException;
 import model.Employee;
 
 public abstract class StepPanel extends JPanel {
