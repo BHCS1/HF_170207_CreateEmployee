@@ -54,6 +54,10 @@ public class Employee extends Model {
     disconnect();
     return list;
   }
+  
+  public Employee() {
+    ;
+  }
 
   public Employee(int id, String firstName, String lastName, int salary, 
           int departmentId, String departmentName) {
