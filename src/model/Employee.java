@@ -34,7 +34,7 @@ public class Employee extends Model {
             + "FROM departments d "
             + "INNER JOIN employees e "
             + "ON e.department_id=d.department_id "
-            + "ORDER BY depName, empName";
+            + "ORDER BY depName, firstName, lastName";
 
     ResultSet result = connection.createStatement().executeQuery(query);
 
