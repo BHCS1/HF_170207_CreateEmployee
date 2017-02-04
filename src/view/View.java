@@ -95,7 +95,7 @@ public class View extends JFrame implements ActionListener {
       CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employeeId);
       ced.setVisible(true);
       if (employeeId > 0) {
-        
+        System.out.println("Teszt");
       }
     }
   }
