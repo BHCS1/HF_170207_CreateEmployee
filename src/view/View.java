@@ -7,7 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.Employee;
 
@@ -97,7 +101,26 @@ public class View extends JFrame implements ActionListener {
       CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employeeId);
       ced.setVisible(true);
       if (employeeId > 0) {
-        
+        try {
+          EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
+          setEmployees(etm);
+          spTable.revalidate();
+          spTable.repaint();
+          int index = 0;
+          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employeeId)
+            index++;
+          if (index < tEmployees.getRowCount()) {
+            tEmployees.setRowSelectionInterval(index, index);
+            lMessage.setText("Employee registered successfully!  ");
+            timerMessage.start();
+          }
+        } catch (ClassNotFoundException ex) {
+          JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+          System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+          JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
+          System.out.println(ex.getMessage());
+        }
       }
     }
   }

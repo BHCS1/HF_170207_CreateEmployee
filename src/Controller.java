@@ -20,7 +20,6 @@ public class Controller implements ActionListener {
           view.setVisible(true);
         } catch (ClassNotFoundException e) {
           JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
-          
           System.out.println(e.getMessage());
           System.exit(0);
         } catch (SQLException e) {
