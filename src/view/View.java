@@ -1,5 +1,6 @@
 package view;
 
+import view.createemployee.CreateEmployeeDialog;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
