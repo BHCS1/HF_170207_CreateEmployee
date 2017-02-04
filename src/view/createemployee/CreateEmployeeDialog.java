@@ -83,18 +83,11 @@ public class CreateEmployeeDialog extends JDialog {
       btBack.setEnabled(false);
       if (i > 0 && STEPS_NUMBER > 1) {
         btBack.setEnabled(true);
-        btBack.addActionListener(new ActionListener() {
+        btBack.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            boolean check = sp.checking();
-            if (check) {
+          public void mouseClicked(MouseEvent e) {
+            if(((JButton)e.getSource()).isEnabled() && sp.checking())
               tb.setSelectedIndex(backStepPanelIndex);
-            } else {
-              // BALAZS System.out.println("Hiba");
-              // A tartalmat a borderlayout.centerrel kel hozzaadni,de ugye ez az alap
-              // a page starton a lepes feliratat add hozza, pl Nev megadasa, department kivalasztasa,
-              // a page enden a nyomogombok lesznek
-            }
           }
         });
       }
@@ -105,15 +98,11 @@ public class CreateEmployeeDialog extends JDialog {
       btNext.setEnabled(false);
       if (i < STEPS_NUMBER - 1 && STEPS_NUMBER > 1) {
         btNext.setEnabled(true);
-        btNext.addActionListener(new ActionListener() {
+        btNext.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            boolean check = sp.checking();
-            if (check) {
-              tb.setSelectedIndex(nextStepPanelIndex);
-            } else {
-              // BALAZS System.out.println("Hiba");
-            }
+          public void mouseClicked(MouseEvent e) {
+            if(((JButton)e.getSource()).isEnabled() && sp.checking())
+             tb.setSelectedIndex(nextStepPanelIndex);
           }
         });
       }
@@ -134,9 +123,9 @@ public class CreateEmployeeDialog extends JDialog {
       btnFinish.setEnabled(false);
       if(i==STEPS_NUMBER-1) {
         btnFinish.setEnabled(true);
-        btnFinish.addActionListener(new ActionListener() {
+        btnFinish.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
+          public void mouseClicked(MouseEvent e) {
             try {
               int returnVal=employee.save();
               employeeId=returnVal;
