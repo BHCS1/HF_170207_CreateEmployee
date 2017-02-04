@@ -98,7 +98,7 @@ public class Employee extends Model {
     return maxId+1;
   }
   
-  public boolean save() throws SQLException, ClassNotFoundException {
+  public int save() throws SQLException, ClassNotFoundException {
     connect();
 
     int nextId = getNextId();
@@ -126,11 +126,13 @@ public class Employee extends Model {
     ps.setInt(9, getManagerId());
     ps.setInt(10, getDepartmentId());
     
-    int result = ps.executeUpdate();
+    ps.executeUpdate();
 
     disconnect();
 
-    return result > 0;
+    this.id = nextId;
+    
+    return nextId;
   }
 
   public void setSalary(int salary) {
