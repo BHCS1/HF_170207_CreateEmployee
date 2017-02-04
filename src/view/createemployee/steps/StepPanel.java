@@ -2,12 +2,15 @@ package view.createemployee.steps;
 
 import javax.swing.*;
 import java.awt.*;
+import model.Employee;
 
 public abstract class StepPanel extends JPanel {
   private String title;
+  private Employee employee;
 
-  public StepPanel(String title) {
+  public StepPanel(String title, Employee employee) {
     this.title=title;
+    this.employee=employee;
     
     this.setLayout(new BorderLayout());
     

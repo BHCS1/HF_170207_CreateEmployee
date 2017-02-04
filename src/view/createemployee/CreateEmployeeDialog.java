@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Employee;
-import view.createemployee.steps.FirstStepPanel;
+import view.createemployee.steps.SecondStepPanel;
 
 public class CreateEmployeeDialog extends JDialog {
   private Integer employeeId=null;
@@ -46,9 +46,9 @@ public class CreateEmployeeDialog extends JDialog {
     
     int i=0;
     // FIRST STEP
-    stepPanels.add(new FirstStepPanel("First Step"));
-    stepPanels.add(new /*SecondStepPanel*/FirstStepPanel("Second Step"));
-    stepPanels.add(new /*ThirdStepPanel*/FirstStepPanel("Third Step"));
+    stepPanels.add(new SecondStepPanel("First Step", employee));
+//    stepPanels.add(new /*SecondStepPanel*/FirstStepPanel("Second Step"));
+//    stepPanels.add(new /*ThirdStepPanel*/FirstStepPanel("Third Step"));
 
     // SECOND STEP
     // ...
