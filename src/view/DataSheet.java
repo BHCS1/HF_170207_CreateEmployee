@@ -65,7 +65,7 @@ public class DataSheet extends JDialog implements ActionListener {
     tftNewSalary.setColumns(8);
     pnCenter.add(tftNewSalary);
     salaryCalculate();
-    lbMinMaxSalary = new JLabel("lease select a new salary from $"+salaryMin+" to $" +salaryMax);
+    lbMinMaxSalary = new JLabel("Please select a new salary from $"+salaryMin+" to $" +salaryMax);
     pnSalaryChange.add(pnCenterValues, BorderLayout.SOUTH);
     pnCenterValues.add(lbMinMaxSalary);
     
