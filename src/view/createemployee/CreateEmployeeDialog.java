@@ -22,7 +22,7 @@ public class CreateEmployeeDialog extends JDialog {
 
   public CreateEmployeeDialog(Frame owner, Integer employeeId) {
     super(owner, true);
-    this.setTitle("Create New Employee");
+    this.setTitle("Create new employee");
     this.setSize(500, 400);
     this.setLocationRelativeTo(this);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -81,7 +81,7 @@ public class CreateEmployeeDialog extends JDialog {
       // BACK BUTTON
       JButton btBack = new JButton("Back");
       btBack.setEnabled(false);
-      if (i > 0 && STEPS_NUMBER > 1) {
+      if (i > 0 && (STEPS_NUMBER > 1)) {
         btBack.setEnabled(true);
         btBack.addMouseListener(new MouseAdapter() {
           @Override
@@ -96,7 +96,7 @@ public class CreateEmployeeDialog extends JDialog {
       // NEXT BUTTON
       JButton btNext = new JButton("Next");
       btNext.setEnabled(false);
-      if (i < STEPS_NUMBER - 1 && STEPS_NUMBER > 1) {
+      if (i < (STEPS_NUMBER - 1) && STEPS_NUMBER > 1) {
         btNext.setEnabled(true);
         btNext.addMouseListener(new MouseAdapter() {
           @Override
@@ -121,7 +121,7 @@ public class CreateEmployeeDialog extends JDialog {
       // FINISH BUTTON
       JButton btnFinish=new JButton("Finish");
       btnFinish.setEnabled(false);
-      if(i==STEPS_NUMBER-1) {
+      if(i == (STEPS_NUMBER-1)) {
         btnFinish.setEnabled(true);
         btnFinish.addMouseListener(new MouseAdapter() {
           @Override
