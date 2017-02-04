@@ -14,6 +14,9 @@ public class View extends JFrame implements ActionListener {
 
   private JTable tEmployees = new JTable();
   private JScrollPane spTable = new JScrollPane(tEmployees);
+  private JPanel pnUp = new JPanel(new GridLayout(1, 2));
+  private JPanel pnLeft = new JPanel();
+  private JButton btRegister = new JButton("Register new employee");
   private JLabel lMessage = new JLabel(" ", SwingConstants.RIGHT);
   Timer timerMessage = new Timer(3000, this);
   DefaultTableCellRenderer buttonAndCenterRenderer = new DefaultTableCellRenderer() {
@@ -34,7 +37,11 @@ public class View extends JFrame implements ActionListener {
     lMessage.setFont(new Font("Ariel", Font.BOLD, 16));
     lMessage.setForeground(Color.GREEN);
     lMessage.setHorizontalTextPosition(SwingConstants.RIGHT);
-    add(lMessage, BorderLayout.PAGE_START);
+    pnUp.add(pnLeft);
+    pnLeft.add(btRegister);
+    pnUp.add(lMessage);
+    pnUp.setSize(590, 50);
+    add(pnUp, BorderLayout.PAGE_START);
     add(spTable);
     buttonAndCenterRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
     tEmployees.addMouseListener(new JTableButtonMouseListener(tEmployees));
@@ -83,6 +90,14 @@ public class View extends JFrame implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     lMessage.setText(" ");
     timerMessage.stop();
+    if (e.getSource() == btRegister) {
+      Integer employeeId = -1;
+      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employeeId);
+      ced.setVisible(true);
+      if (employeeId > 0) {
+        
+      }
+    }
   }
 
   private static class JTableButtonMouseListener extends MouseAdapter {
