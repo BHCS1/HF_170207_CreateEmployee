@@ -25,7 +25,7 @@ public class CreateEmployeeDialog extends JDialog {
 
   public CreateEmployeeDialog(Frame owner, Integer employeeId) {
     super(owner, true);
-    this.setTitle("Create New Employee");
+    this.setTitle("Create new employee");
     this.setSize(500, 400);
     this.setLocationRelativeTo(this);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -82,20 +82,13 @@ public class CreateEmployeeDialog extends JDialog {
       // BACK BUTTON
       JButton btBack = new JButton("Back");
       btBack.setEnabled(false);
-      if (i > 0 && STEPS_NUMBER > 1) {
+      if (i > 0 && (STEPS_NUMBER > 1)) {
         btBack.setEnabled(true);
-        btBack.addActionListener(new ActionListener() {
+        btBack.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            boolean check = sp.checking();
-            if (check) {
+          public void mouseClicked(MouseEvent e) {
+            if(((JButton)e.getSource()).isEnabled() && sp.checking())
               tb.setSelectedIndex(backStepPanelIndex);
-            } else {
-              // BALAZS System.out.println("Hiba");
-              // A tartalmat a borderlayout.centerrel kel hozzaadni,de ugye ez az alap
-              // a page starton a lepes feliratat add hozza, pl Nev megadasa, department kivalasztasa,
-              // a page enden a nyomogombok lesznek
-            }
           }
         });
       }
@@ -104,17 +97,13 @@ public class CreateEmployeeDialog extends JDialog {
       // NEXT BUTTON
       JButton btNext = new JButton("Next");
       btNext.setEnabled(false);
-      if (i < STEPS_NUMBER - 1 && STEPS_NUMBER > 1) {
+      if (i < (STEPS_NUMBER - 1) && STEPS_NUMBER > 1) {
         btNext.setEnabled(true);
-        btNext.addActionListener(new ActionListener() {
+        btNext.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
-            boolean check = sp.checking();
-            if (check) {
-              tb.setSelectedIndex(nextStepPanelIndex);
-            } else {
-              // BALAZS System.out.println("Hiba");
-            }
+          public void mouseClicked(MouseEvent e) {
+            if(((JButton)e.getSource()).isEnabled() && sp.checking())
+             tb.setSelectedIndex(nextStepPanelIndex);
           }
         });
       }
@@ -133,11 +122,11 @@ public class CreateEmployeeDialog extends JDialog {
       // FINISH BUTTON
       JButton btnFinish=new JButton("Finish");
       btnFinish.setEnabled(false);
-      if(i==STEPS_NUMBER-1) {
+      if(i == (STEPS_NUMBER-1)) {
         btnFinish.setEnabled(true);
-        btnFinish.addActionListener(new ActionListener() {
+        btnFinish.addMouseListener(new MouseAdapter() {
           @Override
-          public void actionPerformed(ActionEvent e) {
+          public void mouseClicked(MouseEvent e) {
             try {
               int returnVal=employee.save();
               employeeId=returnVal;
