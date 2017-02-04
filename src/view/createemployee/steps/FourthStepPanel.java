@@ -5,38 +5,24 @@
  */
 package view.createemployee.steps;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Employee;
-import model.Job;
 
 /**
  *
  * @author ferenc
  */
-public class ThirdStepPanel extends StepPanel {
+public class FourthStepPanel extends StepPanel {
   private String title;
   private Employee employee;
-
-  public ThirdStepPanel(String title, Employee employee) {
-    super(title, employee);
-    this.title = title;
-    this.employee = employee;
-  }
   
-
+  public FourthStepPanel(String title, Employee employee) {
+    super(title, employee);
+    System.out.println("Parent: "+employee.toString());
+  }
 
   @Override
   public void initComponents() {
-    try {
-      Job.getAll();
-    } catch (ClassNotFoundException ex) {
-      ;
-    } catch (SQLException ex) {
-      ;
-    }
-  
+    ;
   }
 
   @Override

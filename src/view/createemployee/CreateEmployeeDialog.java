@@ -10,7 +10,10 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Employee;
+import view.createemployee.steps.FirstStepPanel;
+import view.createemployee.steps.FourthStepPanel;
 import view.createemployee.steps.SecondStepPanel;
+import view.createemployee.steps.ThirdStepPanel;
 
 public class CreateEmployeeDialog extends JDialog {
   private Integer employeeId=null;
@@ -44,14 +47,12 @@ public class CreateEmployeeDialog extends JDialog {
            minimális és maximális fizetés még éppen behatárolja,
         6. befejezés, ellenőrzés, listázás*/
     
-    int i=0;
-    // FIRST STEP
-    stepPanels.add(new SecondStepPanel("First Step", employee));
-//    stepPanels.add(new /*SecondStepPanel*/FirstStepPanel("Second Step"));
-//    stepPanels.add(new /*ThirdStepPanel*/FirstStepPanel("Third Step"));
 
-    // SECOND STEP
-    // ...
+    stepPanels.add(new FirstStepPanel("Instructions", employee));
+    stepPanels.add(new SecondStepPanel("Person details", employee));
+    stepPanels.add(new ThirdStepPanel("Department and job", employee));
+    stepPanels.add(new FourthStepPanel("Salary", employee));
+
   }
 
   @SuppressWarnings("Convert2Lambda")
