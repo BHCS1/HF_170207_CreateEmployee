@@ -7,9 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- * Created by ferenc on 2017. 02. 04..
- */
 public class CreateEmployeeDialog extends JDialog {
   private Integer employeeId=null;
   private JTabbedPane tb = new JTabbedPane();
@@ -36,6 +33,7 @@ public class CreateEmployeeDialog extends JDialog {
     }
   }
 
+  @SuppressWarnings("Convert2Lambda")
   private void buildTabbedPane() {
     fillTAbbedPane();
     this.add(tb);
@@ -62,15 +60,14 @@ public class CreateEmployeeDialog extends JDialog {
       int nextStepPanelIndex = index + 1;
 
       // BACK BUTTON
-      @SuppressWarnings("unchecked")
       MagicButton btBack = new MagicButton("Back", i);
       if (i > 0) {
         btBack.setEnabled(true);
         btBack.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            boolean ellenoriz = sp.checking();
-            if (ellenoriz) {
+            boolean check = sp.checking();
+            if (check) {
               tb.setSelectedIndex(backStepPanelIndex);
             } else {
               // BALAZS System.out.println("Hiba");
@@ -84,15 +81,14 @@ public class CreateEmployeeDialog extends JDialog {
       pnButtons.add(btBack);
 
       // NEXT BUTTON
-      @SuppressWarnings("unchecked")
       MagicButton btNext = new MagicButton("Next", i);
       if (i < LENGTH - 1) {
         btNext.setEnabled(true);
         btNext.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            boolean ellenoriz = sp.checking();
-            if (ellenoriz) {
+            boolean check = sp.checking();
+            if (check) {
               tb.setSelectedIndex(nextStepPanelIndex);
             } else {
               // BALAZS System.out.println("Hiba");
