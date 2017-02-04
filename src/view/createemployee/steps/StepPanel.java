@@ -2,11 +2,16 @@ package view.createemployee.steps;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLClientInfoException;
 import model.Employee;
 
 public abstract class StepPanel extends JPanel {
   private String title;
   private Employee employee;
+  
+  public StepPanel(String title){
+    this.title=title;
+  }
 
   public StepPanel(String title, Employee employee) {
     this.title=title;
@@ -29,7 +34,7 @@ public abstract class StepPanel extends JPanel {
     return title;
   }
   
-  public abstract void initComponents();
+  public abstract void initComponents ();
 
   public abstract boolean checking();
   

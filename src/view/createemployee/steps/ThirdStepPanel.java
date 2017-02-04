@@ -5,7 +5,11 @@
  */
 package view.createemployee.steps;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Employee;
+import model.Job;
 
 /**
  *
@@ -21,11 +25,18 @@ public class ThirdStepPanel extends StepPanel {
     this.employee = employee;
   }
   
-  
+
 
   @Override
   public void initComponents() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    try {
+      Job.getAll();
+    } catch (ClassNotFoundException ex) {
+      ;
+    } catch (SQLException ex) {
+      ;
+    }
+  
   }
 
   @Override
