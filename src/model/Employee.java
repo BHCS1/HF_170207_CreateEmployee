@@ -1,13 +1,21 @@
 package model;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Employee extends Model {
 
-  private final int ID;
-  private String name;
+  private int id;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String phoneNumber;
+  private Date hireDate;
+  private int jobId;
+  private int managerId;
   private int salary;
   private int departmentId;
   private String departmentName;
@@ -20,7 +28,8 @@ public class Employee extends Model {
     String query = "SELECT e.employee_id AS id, "
             + "d.department_id AS depId, "
             + "d.department_name AS depName, "
-            + "e.first_name || ' ' || e.last_name AS empName, "
+            + "e.first_name AS firstName, "
+            + "e.last_name AS lastName, "
             + "e.salary "
             + "FROM departments d "
             + "INNER JOIN employees e "
@@ -33,7 +42,8 @@ public class Employee extends Model {
       list.add(
               new Employee(
                       result.getInt("id"),
-                      result.getString("empName"),
+                      result.getString("firstName"),
+                      result.getString("lastName"),
                       result.getInt("salary"),
                       result.getInt("depId"),
                       result.getString("depName")
@@ -45,13 +55,28 @@ public class Employee extends Model {
     return list;
   }
 
-  public Employee(int id, String name, int salary,
+  public Employee(int id, String firstName, String lastName, int salary, 
           int departmentId, String departmentName) {
-    this.ID = id;
-    this.name = name;
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.salary = salary;
     this.departmentId = departmentId;
     this.departmentName = departmentName;
+  }
+
+  public Employee(String firstName, String lastName, String email, 
+          String phoneNumber, Date hireDate, int jobId, int managerId, 
+          int salary, int departmentId) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.hireDate = hireDate;
+    this.jobId = jobId;
+    this.managerId = managerId;
+    this.salary = salary;
+    this.departmentId = departmentId;
   }
 
   public boolean update() throws SQLException, ClassNotFoundException {
@@ -64,17 +89,60 @@ public class Employee extends Model {
 
     return result > 0;
   }
+  
+  private static int getNextId() throws SQLException, ClassNotFoundException {
+    String query = "SELECT MAX(employee_id) AS maxId FROM employees;";
+    ResultSet result = connection.createStatement().executeQuery(query);
+    result.next();
+    int maxId = result.getInt("maxId");
+    return maxId+1;
+  }
+  
+  public boolean save() throws SQLException, ClassNotFoundException {
+    connect();
+
+    int nextId = getNextId();
+    
+    PreparedStatement ps = connection.prepareStatement("INSERT INTO employees ("
+            + "employee_id, "
+            + "first_name, "
+            + "last_name, "
+            + "email, "
+            + "phone_number, "
+            + "hire_date, "
+            + "job_id, "
+            + "salary, "
+            + "manager_id, "
+            + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?);");
+    
+    ps.setInt(1, nextId);
+    ps.setString(2, getFirstName());
+    ps.setString(3, getLastName());
+    ps.setString(4, getEmail());
+    ps.setString(5, getPhoneNumber());
+    ps.setDate(6, getHireDate());
+    ps.setInt(7, getJobId());
+    ps.setInt(8, getSalary());
+    ps.setInt(9, getManagerId());
+    ps.setInt(10, getDepartmentId());
+    
+    int result = ps.executeUpdate();
+
+    disconnect();
+
+    return result > 0;
+  }
 
   public void setSalary(int salary) {
     this.salary = salary;
   }
 
   public int getID() {
-    return ID;
+    return id;
   }
 
   public String getName() {
-    return name;
+    return firstName + " " + lastName;
   }
 
   public int getSalary() {
@@ -96,4 +164,62 @@ public class Employee extends Model {
     
     return department;
   }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public Date getHireDate() {
+    return hireDate;
+  }
+
+  public void setHireDate(Date hireDate) {
+    this.hireDate = hireDate;
+  }
+
+  public int getJobId() {
+    return jobId;
+  }
+
+  public void setJobId(int jobId) {
+    this.jobId = jobId;
+  }
+
+  public int getManagerId() {
+    return managerId;
+  }
+
+  public void setManagerId(int managerId) {
+    this.managerId = managerId;
+  }
+  
+  
 }
