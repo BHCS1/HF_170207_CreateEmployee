@@ -6,12 +6,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Employee;
 
 public class CreateEmployeeDialog extends JDialog {
   private Integer employeeId=null;
   private JTabbedPane tb = new JTabbedPane();
-  private StepPanel[] stepPanels = new StepPanel[5];
+  private final int STEPS_NUMBER=3;
+  private StepPanel[] stepPanels = new StepPanel[STEPS_NUMBER];
   private final CreateEmployeeDialog THIS_CreateEmployeeDialog = this;
+  
+  private Employee employee=new Employee();
 
   public CreateEmployeeDialog(Frame owner, Integer employeeId) {
     super(owner, true);
@@ -29,22 +36,41 @@ public class CreateEmployeeDialog extends JDialog {
   private void fillTAbbedPane() {
     // BALAZS
     // proba miatt ciklussal feltoltottam
-    for (int i = 0; i < stepPanels.length; i++) {
-      stepPanels[i] = new StepPanel((i + 1) + ". step");
-    }
+    /*  1. tájékoztatás a varázsló lépéseiről,
+        2. alapadatok bekérése (név, elérhetőségek),
+        3. részleg kiválasztása,
+        4. munkakör kiválasztása a cégnél lévő össze munkakörből,
+        5. fizetés megadása úgy, hogy azt a munkaköréhez tartozó
+           minimális és maximális fizetés még éppen behatárolja,
+        6. befejezés, ellenőrzés, listázás*/
+    
+    int i=0;
+    // FIRST STEP
+    stepPanels[i++] = new StepPanel("First step") {
+
+      @Override
+      void initComponents() {
+        JLabel lbText=new JLabel("First step");
+        this.add(lbText);
+      }
+      
+      @Override
+      boolean checking() {
+        return true;
+      }
+    };
+    // SECOND STEP
+    // ...
   }
 
   @SuppressWarnings("Convert2Lambda")
   private void buildTabbedPane() {
     fillTAbbedPane();
     this.add(tb);
-    final int LENGTH = stepPanels.length;
 
-    for (int i = 0; i < LENGTH; i++) {
+    for (int i = 0; i < STEPS_NUMBER; i++) {
       StepPanel sp = stepPanels[i];
       String stepTitle = stepPanels[i].getTitle();
-
-      sp.add(new JLabel(stepTitle), BorderLayout.PAGE_START);
 
       JPanel pnButtons = new JPanel();
 
@@ -83,7 +109,7 @@ public class CreateEmployeeDialog extends JDialog {
 
       // NEXT BUTTON
       MagicButton btNext = new MagicButton("Next", i);
-      if (i < LENGTH - 1) {
+      if (i < STEPS_NUMBER - 1) {
         btNext.setEnabled(true);
         btNext.addActionListener(new ActionListener() {
           @Override
@@ -112,14 +138,21 @@ public class CreateEmployeeDialog extends JDialog {
       // FINISH BUTTON
       JButton btnFinish=new JButton("Finish");
       btnFinish.setEnabled(false);
-      if(i==LENGTH-1) {
+      if(i==STEPS_NUMBER-1) {
         btnFinish.setEnabled(true);
         btnFinish.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            //Kapcsolat a modellel
-            // insert query meghívása
-            // lajos -1-et van id-t
+            try {
+              //Kapcsolat a modellel
+              // insert query meghívása
+              // lajos -1-et van id-t
+              employee.save();
+            } catch (SQLException ex) {
+              ; // BALAZS hibauzenet
+            } catch (ClassNotFoundException ex) {
+              ; // BALAZS hibauzenet
+            }
           }
         });
       }
