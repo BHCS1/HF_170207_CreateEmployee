@@ -91,11 +91,11 @@ public class Employee extends Model {
   }
   
   private static int getNextId() throws SQLException, ClassNotFoundException {
-    String query = "SELECT MAX(employee_id) AS maxId FROM employees;";
+    String query = "SELECT EMPLOYEES_SEQ.nextval FROM dual;";
     ResultSet result = connection.createStatement().executeQuery(query);
     result.next();
-    int maxId = result.getInt("maxId");
-    return maxId+1;
+    int nextId = result.getInt("nextval");
+    return nextId;
   }
   
   public int save() throws SQLException, ClassNotFoundException {
