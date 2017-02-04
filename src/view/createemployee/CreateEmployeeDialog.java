@@ -1,5 +1,6 @@
 package view.createemployee;
 
+import view.createemployee.steps.StepPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,16 +8,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import model.Employee;
+import view.createemployee.steps.FirstStepPanel;
 
 public class CreateEmployeeDialog extends JDialog {
   private Integer employeeId=null;
   private JTabbedPane tb = new JTabbedPane();
-  private final int STEPS_NUMBER=3;
-  private StepPanel[] stepPanels = new StepPanel[STEPS_NUMBER];
-  private final CreateEmployeeDialog THIS_CreateEmployeeDialog = this;
+  private ArrayList<StepPanel> stepPanels=new ArrayList<>();
+  private final CreateEmployeeDialog THIS_DIALOG = this;
   
   private Employee employee=new Employee();
 
@@ -46,19 +46,10 @@ public class CreateEmployeeDialog extends JDialog {
     
     int i=0;
     // FIRST STEP
-    stepPanels[i++] = new StepPanel("First step") {
+    stepPanels.add(new FirstStepPanel("First Step"));
+    stepPanels.add(new /*SecondStepPanel*/FirstStepPanel("Second Step"));
+    stepPanels.add(new /*ThirdStepPanel*/FirstStepPanel("Third Step"));
 
-      @Override
-      void initComponents() {
-        JLabel lbText=new JLabel("First step");
-        this.add(lbText);
-      }
-      
-      @Override
-      boolean checking() {
-        return true;
-      }
-    };
     // SECOND STEP
     // ...
   }
@@ -68,9 +59,10 @@ public class CreateEmployeeDialog extends JDialog {
     fillTAbbedPane();
     this.add(tb);
 
+    final int STEPS_NUMBER=stepPanels.size();
     for (int i = 0; i < STEPS_NUMBER; i++) {
-      StepPanel sp = stepPanels[i];
-      String stepTitle = stepPanels[i].getTitle();
+      StepPanel sp=stepPanels.get(i);
+      String stepTitle = sp.getTitle();
 
       JPanel pnButtons = new JPanel();
 
@@ -87,8 +79,9 @@ public class CreateEmployeeDialog extends JDialog {
       int nextStepPanelIndex = index + 1;
 
       // BACK BUTTON
-      MagicButton btBack = new MagicButton("Back", i);
-      if (i > 0) {
+      JButton btBack = new JButton("Back");
+      btBack.setEnabled(false);
+      if (i > 0 && STEPS_NUMBER > 1) {
         btBack.setEnabled(true);
         btBack.addActionListener(new ActionListener() {
           @Override
@@ -108,8 +101,9 @@ public class CreateEmployeeDialog extends JDialog {
       pnButtons.add(btBack);
 
       // NEXT BUTTON
-      MagicButton btNext = new MagicButton("Next", i);
-      if (i < STEPS_NUMBER - 1) {
+      JButton btNext = new JButton("Next");
+      btNext.setEnabled(false);
+      if (i < STEPS_NUMBER - 1 && STEPS_NUMBER > 1) {
         btNext.setEnabled(true);
         btNext.addActionListener(new ActionListener() {
           @Override
@@ -130,7 +124,7 @@ public class CreateEmployeeDialog extends JDialog {
       btCancel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          THIS_CreateEmployeeDialog.dispose();
+          THIS_DIALOG.dispose();
         }
       });
       pnButtons.add(btCancel);
@@ -144,14 +138,15 @@ public class CreateEmployeeDialog extends JDialog {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {
-              //Kapcsolat a modellel
-              // insert query meghívása
-              // lajos -1-et van id-t
-              employee.save();
+              int returnVal=employee.save();
+              employeeId=returnVal;
+              java.util.Date utilDate = new java.util.Date();
+              java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+              employee.setHireDate(sqlDate);
             } catch (SQLException ex) {
-              ; // BALAZS hibauzenet
+              System.out.println("Hiba"); // BALAZS hibauzenet
             } catch (ClassNotFoundException ex) {
-              ; // BALAZS hibauzenet
+              System.out.println("Hiba");; // BALAZS hibauzenet
             }
           }
         });

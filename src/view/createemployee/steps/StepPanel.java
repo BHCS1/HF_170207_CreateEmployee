@@ -1,11 +1,10 @@
-package view.createemployee;
+package view.createemployee.steps;
 
 import javax.swing.*;
 import java.awt.*;
 
 public abstract class StepPanel extends JPanel {
   private String title;
-  //private boolean check;
 
   public StepPanel(String title) {
     this.title=title;
@@ -23,24 +22,12 @@ public abstract class StepPanel extends JPanel {
     initComponents();
   }
 
-//  boolean setCheck() {
-//    return true;
-//  }
-//
-//  boolean getCheck() {
-//    return true;
-//  }
-
   public String getTitle() {
     return title;
   }
-
-//  public void setTitle(String title) {
-//    this.title = title;
-//  }
   
-  abstract void initComponents();
+  public abstract void initComponents();
 
-  abstract boolean checking();
+  public abstract boolean checking();
   
 }
