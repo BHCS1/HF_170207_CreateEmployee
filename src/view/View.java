@@ -47,6 +47,7 @@ public class View extends JFrame implements ActionListener {
     buttonAndCenterRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
     tEmployees.addMouseListener(new JTableButtonMouseListener(tEmployees));
     tEmployees.setAutoCreateRowSorter(true);
+    btRegister.addActionListener(this);
     lookAndFeel();
     setResizable(false);
     setLocationRelativeTo(this);

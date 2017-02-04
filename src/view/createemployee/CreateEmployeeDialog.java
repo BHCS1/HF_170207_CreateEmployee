@@ -14,14 +14,15 @@ public class CreateEmployeeDialog extends JDialog {
   private final CreateEmployeeDialog THIS_CreateEmployeeDialog = this;
 
   public CreateEmployeeDialog(Frame owner, Integer employeeId) {
-    super(owner);
-    this.employeeId=employeeId;
+    super(owner, true);
     this.setTitle("Create New Employee");
     this.setSize(500, 400);
     this.setLocationRelativeTo(this);
     this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     tb.setFocusable(false);
     tb.setEnabled(false);
+    
+    this.employeeId=employeeId;
     buildTabbedPane();
   }
 
