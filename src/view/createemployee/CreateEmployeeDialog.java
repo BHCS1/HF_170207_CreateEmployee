@@ -87,7 +87,7 @@ public class CreateEmployeeDialog extends JDialog {
         btBack.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
-            if(((JButton)e.getSource()).isEnabled() && sp.checking())
+            if(((JButton)e.getSource()).isEnabled())
               tb.setSelectedIndex(backStepPanelIndex);
           }
         });
