@@ -42,7 +42,7 @@ public class CreateEmployeeDialog extends JDialog {
     stepPanels.add(new SecondStepPanel("Person details", employee));
     stepPanels.add(new ThirdStepPanel("Department and job", employee));
     stepPanels.add(new FourthStepPanel("Salary", employee));
-    //stepPanels.add(new FifthStepPanel("Summary", employee));
+
 
   }
 

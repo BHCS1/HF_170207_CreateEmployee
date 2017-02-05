@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,11 +24,19 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
   
   private JTextField tfSalary;
   private JPanel pnCheck;
+  private JLabel lbInstructionText;
   
   public FourthStepPanel(String title, Employee employee) {
     super(title, employee);
     this.employee=employee;
     initComponents();
+     
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentShown(ComponentEvent e) {
+        lbInstructionText.setText("Please type the monthly salary ["+minSalary+":"+maxSalary+"] ($): ");
+      }
+    });
 
 
   }
@@ -63,24 +73,20 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
       try {
         typedValue=Integer.parseInt(tfSalary.getText());
         if (typedValue>minSalary && typedValue<maxSalary) {
-          FifthStepPanel fsp = new FifthStepPanel(title, employee);
           return true;
         }
         else
           JOptionPane.showMessageDialog(this, "Wrong salary! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-
       }
       catch (NullPointerException|NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
-
       return false;
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    System.out.println("s");
     checking();
   }
 
