@@ -5,12 +5,14 @@
  */
 package view.createemployee.steps;
 
-import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.text.ParseException;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 import model.Employee;
 
 /**
@@ -23,35 +25,47 @@ public class SecondStepPanel extends StepPanel {
   private JTextField tfEmail;
   private JTextField tfFirstName;
   private JTextField tfLastName;
+  private JFormattedTextField ftfPhone;
   
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
+    this.employee=employee;
+ 
+
   }
   
   @Override
   public void initComponents() {
+    employee.getEmail();
     JPanel pn=new JPanel();
-    pn.setLayout(new FlowLayout());
+    pn.setLayout(new FlowLayout(0));
     JPanel pnFname= new JPanel();
-    pnFname.add(new JLabel("First name:"));
+    pnFname.add(new JLabel("First name:          "));
     tfFirstName = new JTextField();
     pnFname.add(tfFirstName);
     pn.add(pnFname);
     JPanel pnLname=new JPanel();
-    pnLname.add(new JLabel("Last name:"));
+    pnLname.add(new JLabel("Last name:         "));
     tfLastName = new JTextField();
     pnLname.add(tfLastName);
     pn.add(pnLname);
     JPanel pnEmail=new JPanel();
-    JLabel lbEmail= new JLabel("Email:");
-    pnEmail.add(new JLabel("Email:"));
+    pnEmail.add(new JLabel("Email:                  "));
     tfEmail = new JTextField();
     pnEmail.add(tfEmail);
     pn.add(pnEmail);
     JPanel pnPhone = new JPanel();
-    pnPhone.add(new JLabel("Phone number:"));
-    JTextField tfPhone = new JTextField();
-    pnPhone.add(tfPhone);
+    try {
+      pnPhone.add(new JLabel("Phone number:  "));
+      MaskFormatter mf = new MaskFormatter("###.###.####");
+      mf.setPlaceholderCharacter('_');
+      ftfPhone = new JFormattedTextField(mf);
+      pnPhone.add(ftfPhone);
+    } catch (ParseException ex) {
+      ;
+    }
+    
+
     pn.add(pnPhone);
 
 
@@ -59,7 +73,6 @@ public class SecondStepPanel extends StepPanel {
     tfFirstName.setColumns(25);
     tfLastName.setColumns(25);
     tfEmail.setColumns(25);
-    tfPhone.setColumns(25);
     
     
     add(pn);
@@ -70,11 +83,24 @@ public class SecondStepPanel extends StepPanel {
     int i=0;
     String email = tfEmail.getText();
     String name = tfFirstName.getText()+tfLastName.getText();
-    if (email.contains("@") && email.contains(".") && email.indexOf("@")<email.indexOf("."))
+    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
       i++;
+      employee.setEmail(email);
+    }
     else {
       JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
     }
+//      String phoneNumber = (String)ftfPhone.getValue();
+//      if (phoneNumber!= null){
+//        System.out.println(phoneNumber);
+//        i++;
+//        employee.setPhoneNumber(phoneNumber);
+//      }
+//      else
+//        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+//
+//        
+//        
     return i==1;
             
   }

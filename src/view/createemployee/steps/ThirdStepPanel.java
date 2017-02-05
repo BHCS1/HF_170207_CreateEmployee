@@ -32,7 +32,8 @@ public class ThirdStepPanel extends StepPanel {
   @Override
   public void initComponents() {
     try {
-      ArrayList<Department> depList=Department.getAll();//new ArrayList<>();
+      ArrayList<Department> depList=Department.getAll();
+      ArrayList<Job> jobList=Job.getAll();
 //      int jobListSize=Job.getAll().size();
 //      jobsList = new String [jobListSize];
 //      for (int i = 0; i < jobListSize; i++) 
@@ -42,7 +43,6 @@ public class ThirdStepPanel extends StepPanel {
       depsList = new String [depListSize];
       for (int i = 0; i < depListSize; i++) {
         depsList[i]=depList.get(i).toString();//Department.getAll().get(i).toString();
-        System.out.println(depsList[i]);
       }
     } catch (ClassNotFoundException ex) {
       System.out.println("?");
