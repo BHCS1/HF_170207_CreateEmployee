@@ -45,7 +45,7 @@ public class FourthStepPanel extends StepPanel {
     pnSalary.add(tfSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
-    pnCheck.add(new JLabel());
+
     pn.add(pnCheck);
     add(pn);
     
@@ -55,10 +55,10 @@ public class FourthStepPanel extends StepPanel {
 
   @Override
   public boolean checking() {
-      Integer typedValue=null;
+        pnCheck.add(new JLabel("kljl"));
+    Integer typedValue=null;
       try {
         typedValue=Integer.parseInt(tfSalary.getText());
-        System.out.println(typedValue);
         if (typedValue<minSalary || typedValue>maxSalary) {
           JOptionPane.showMessageDialog(this, "Invalid sum! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
           return false;
