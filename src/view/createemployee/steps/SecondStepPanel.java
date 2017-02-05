@@ -28,7 +28,6 @@ public class SecondStepPanel extends StepPanel {
   
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
-    this.employee=employee;
     initComponents();
  
 

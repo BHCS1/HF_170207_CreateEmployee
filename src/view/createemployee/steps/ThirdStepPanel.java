@@ -28,7 +28,6 @@ public class ThirdStepPanel extends StepPanel {
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
-    this.employee=employee;
     initComponents();
   }
   
@@ -79,7 +78,7 @@ public class ThirdStepPanel extends StepPanel {
   public boolean checking() {
     employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
     employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
-    
+    employee.setManagerId(200);
     Job selectedJob=jobList.get(cbJobs.getSelectedIndex());
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();

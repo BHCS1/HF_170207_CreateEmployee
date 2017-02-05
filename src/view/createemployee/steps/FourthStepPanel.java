@@ -7,6 +7,8 @@ package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -19,22 +21,27 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 import model.Employee;
+import static view.createemployee.steps.StepPanel.minSalary;
 
 public class FourthStepPanel extends StepPanel implements ActionListener{
   
   private JTextField tfSalary;
   private JPanel pnCheck;
-  private JLabel lbInstructionText;
+
+
+
+  private JLabel lbInstructionText=new JLabel();
+
   
   public FourthStepPanel(String title, Employee employee) {
     super(title, employee);
-    this.employee=employee;
+    
     initComponents();
-     
+
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentShown(ComponentEvent e) {
-        lbInstructionText.setText("Please type the monthly salary ["+minSalary+":"+maxSalary+"] ($): ");
+        lbInstructionText.setText("Please type the monthly salary from $"+minSalary+" to $"+maxSalary+": ");
       }
     });
 
@@ -46,7 +53,7 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
     JPanel pn = new JPanel(new BorderLayout());
     JPanel pnSalary=new JPanel();
     pnSalary.setLayout(new FlowLayout(FlowLayout.CENTER));
-    pnSalary.add(new JLabel("Please type the monthly salary ($): "));
+    pnSalary.add(lbInstructionText);
     NumberFormat format = NumberFormat.getInstance();
     NumberFormatter formatter = new NumberFormatter(format);
     formatter.setValueClass(Integer.class);
@@ -57,12 +64,8 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
     pnSalary.add(tfSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
-    JButton btCheck = new JButton("Check");
-    btCheck.addActionListener(this);
-    pnCheck.add(btCheck);
     pn.add(pnCheck);
     add(pn);
-    
   }
 
   
