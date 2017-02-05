@@ -7,6 +7,8 @@ package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -15,17 +17,26 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 import model.Employee;
+import static view.createemployee.steps.StepPanel.minSalary;
 
 public class FourthStepPanel extends StepPanel {
   
   private JTextField tfSalary;
   private JPanel pnCheck;
+  private JLabel lbInstructionText=new JLabel();
   
   public FourthStepPanel(String title, Employee employee) {
     super(title, employee);
     this.employee=employee;
+    
     initComponents();
-
+    
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentShown(ComponentEvent e) {
+        lbInstructionText.setText("Please type the monthly salary ["+minSalary+":"+maxSalary+"] ($): ");
+      }
+    });
 
   }
 
@@ -34,7 +45,8 @@ public class FourthStepPanel extends StepPanel {
     JPanel pn = new JPanel(new BorderLayout());
     JPanel pnSalary=new JPanel();
     pnSalary.setLayout(new FlowLayout(FlowLayout.CENTER));
-    pnSalary.add(new JLabel("Please type the monthly salary ($): "));
+    //lbText=new JLabel("Please type the monthly salary ["+minSalary+":"+maxSalary+"] ($): ");
+    pnSalary.add(lbInstructionText);
     NumberFormat format = NumberFormat.getInstance();
     NumberFormatter formatter = new NumberFormatter(format);
     formatter.setValueClass(Integer.class);
@@ -48,7 +60,6 @@ public class FourthStepPanel extends StepPanel {
     pnCheck.add(new JLabel());
     pn.add(pnCheck);
     add(pn);
-    
   }
 
   

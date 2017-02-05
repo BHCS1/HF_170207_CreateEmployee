@@ -94,7 +94,7 @@ public class CreateEmployeeDialog extends JDialog {
           @Override
           public void mouseClicked(MouseEvent e) {
             if(((JButton)e.getSource()).isEnabled() && sp.checking()  )
-             tb.setSelectedIndex(nextStepPanelIndex);
+              tb.setSelectedIndex(nextStepPanelIndex);
           }
         });
       }
