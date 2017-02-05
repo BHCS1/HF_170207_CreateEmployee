@@ -5,7 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import model.Employee;
 import view.createemployee.steps.FifthStepPanel;
@@ -42,7 +44,8 @@ public class CreateEmployeeDialog extends JDialog {
     stepPanels.add(new SecondStepPanel("Person details", employee));
     stepPanels.add(new ThirdStepPanel("Department and job", employee));
     stepPanels.add(new FourthStepPanel("Salary", employee));
-    //stepPanels.add(new FifthStepPanel("Summary", employee));
+    stepPanels.add(new FifthStepPanel("Summary", employee));
+
 
   }
 
@@ -119,16 +122,16 @@ public class CreateEmployeeDialog extends JDialog {
           @Override
           public void mouseClicked(MouseEvent e) {
             try {
-              int returnVal=employee.save();
-              employeeId=returnVal;
               java.util.Date utilDate = new java.util.Date();
               java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
               employee.setHireDate(sqlDate);
+              employee.save();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
-
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
           }
         });

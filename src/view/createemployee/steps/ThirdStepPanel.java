@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -15,25 +10,17 @@ import model.Department;
 import model.Employee;
 import model.Job;
 
-/**
- *
- * @author ferenc
- */
 public class ThirdStepPanel extends StepPanel {
   private String[] jobsList, depsList;
   private JComboBox cbJobs, cbDeps;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
-  
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
-    this.employee=employee;
     initComponents();
   }
   
-
-
   @Override
   public void initComponents() {
     datas();
@@ -50,37 +37,48 @@ public class ThirdStepPanel extends StepPanel {
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
     add(pn);
-
   }
   
   void datas(){
-        try {
+    try {
       depList=Department.getAll();
       jobList=Job.getAll();
+      
       int jobListSize=jobList.size();
       jobsList = new String [jobListSize];
+      
       for (int i = 0; i < jobListSize; i++) 
-       jobsList[i]=jobList.get(i).getTitle();
+        jobsList[i]=jobList.get(i).getTitle();
      
       int depListSize=depList.size();//Department.getAll().size();
       depsList = new String [depListSize];
-      for (int i = 0; i < depListSize; i++) {
+      
+      for (int i = 0; i < depListSize; i++)
         depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
-      }
+      
     } catch (ClassNotFoundException ex) {
       ;
     } catch (SQLException ex) {;
       ;
-      }
-    
+    }
   }
 
   @Override
   public boolean checking() {
-    employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
-    employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
+    int cbDepsSelectedIndex=cbDeps.getSelectedIndex();
+    int cbJobsSelectedIndex=cbJobs.getSelectedIndex();
     
-    Job selectedJob=jobList.get(cbJobs.getSelectedIndex());
+    Department selectedDepartment=depList.get(cbDepsSelectedIndex);
+    Job selectedJob=jobList.get(cbJobsSelectedIndex);
+    
+    employee.setJobId(selectedJob.getId());
+    employee.setDepartmentId(selectedDepartment.getId());
+    
+    depName=selectedDepartment.getName();
+    jobTile=selectedJob.getTitle();
+    
+    employee.setManagerId(200);
+    
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
     

@@ -4,7 +4,6 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import model.Employee;
 
-
 public class FirstStepPanel extends StepPanel {
   
   public FirstStepPanel(String title, Employee employee){
@@ -19,8 +18,6 @@ public class FirstStepPanel extends StepPanel {
             + "3. Set the employee's salary between the given limits</html>");
     add(instructions);
     instructions.setFont(new Font("Arial",0,20));
-    
-
   }
   
   @Override
