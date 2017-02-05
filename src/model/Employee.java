@@ -118,7 +118,7 @@ public class Employee extends Model {
             + "salary, "
             + "manager_id, "
             + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?)");//");
-    
+    System.out.println(nextId);
     ps.setInt(1, nextId);
     ps.setString(2, getFirstName());
     ps.setString(3, getLastName());

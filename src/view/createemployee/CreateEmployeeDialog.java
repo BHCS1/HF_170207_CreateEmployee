@@ -122,11 +122,12 @@ public class CreateEmployeeDialog extends JDialog {
         btnFinish.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
+            int returnVal=-1;
             try {
               java.util.Date utilDate = new java.util.Date();
               java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
               employee.setHireDate(sqlDate);
-              employee.save();
+              returnVal=employee.save();
             } catch (SQLException ex) {
               System.out.println(ex.getMessage());
               JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -134,6 +135,9 @@ public class CreateEmployeeDialog extends JDialog {
               System.out.println(ex.getMessage());
               JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
+            if(returnVal>0)
+              THIS_DIALOG.dispose();
           }
         });
       }
