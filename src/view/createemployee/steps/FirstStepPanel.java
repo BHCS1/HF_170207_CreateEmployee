@@ -14,11 +14,11 @@ public class FirstStepPanel extends StepPanel {
   
   @Override
   public void initComponents() {
-    JLabel instructions = new JLabel("<html>1.New employee's first name and last name without any digit character<br>"
-            + "2.Select the department and the job title<br>"
-            + "3.Set the employee's salary between the given limits</html>");
+    JLabel instructions = new JLabel("<html>1. New employee's first name and last name without any digit character<br>"
+            + "2. Select the department and the job title<br>"
+            + "3. Set the employee's salary between the given limits</html>");
     add(instructions);
-    instructions.setFont(new Font("Arial",1,20));
+    instructions.setFont(new Font("Arial",0,20));
     
 
   }

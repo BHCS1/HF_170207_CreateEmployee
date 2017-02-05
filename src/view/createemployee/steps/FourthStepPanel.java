@@ -7,10 +7,15 @@ package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+<<<<<<< HEAD
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+=======
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+>>>>>>> b1024524b579b5e6487d30ee5f45550a3cd2977d
 import java.text.NumberFormat;
-import javax.swing.JFormattedTextField;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,7 +24,7 @@ import javax.swing.text.NumberFormatter;
 import model.Employee;
 import static view.createemployee.steps.StepPanel.minSalary;
 
-public class FourthStepPanel extends StepPanel {
+public class FourthStepPanel extends StepPanel implements ActionListener{
   
   private JTextField tfSalary;
   private JPanel pnCheck;
@@ -57,7 +62,9 @@ public class FourthStepPanel extends StepPanel {
     pnSalary.add(tfSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
-    pnCheck.add(new JLabel());
+    JButton btCheck = new JButton("Check");
+    btCheck.addActionListener(this);
+    pnCheck.add(btCheck);
     pn.add(pnCheck);
     add(pn);
   }
@@ -66,28 +73,29 @@ public class FourthStepPanel extends StepPanel {
 
   @Override
   public boolean checking() {
-//      int typedValue= Integer.parseInt(tfSalary.getText());
-//      System.out.println(typedValue);
-//      if ((typedValue<minSalary || typedValue>maxSalary)) {
-//        JOptionPane.showMessageDialog(this, "Invalid sum! Please select from this interval: "+ minSalary+"-"+ maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-//        return false;
-//      }
-//        else
-//      return true;
       Integer typedValue=null;
       try {
         typedValue=Integer.parseInt(tfSalary.getText());
-        System.out.println(typedValue);
-        if (typedValue<minSalary || typedValue>maxSalary) {
-          JOptionPane.showMessageDialog(this, "Invalid sum! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-          return false;
+        if (typedValue>minSalary && typedValue<maxSalary) {
+          FifthStepPanel fsp = new FifthStepPanel(title, employee);
+          return true;
         }
+        else
+          JOptionPane.showMessageDialog(this, "Wrong salary! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+
       }
       catch (NullPointerException|NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
-      return true;
+
+      return false;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    System.out.println("s");
+    checking();
   }
 
   
