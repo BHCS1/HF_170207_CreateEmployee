@@ -73,10 +73,12 @@ public class SecondStepPanel extends StepPanel {
   @Override
   public boolean checking() {
     int i=0;
+    
     String email = tfEmail.getText();
     String phoneNumber = (String)ftfPhone.getValue();
     String fName = tfFirstName.getText();
     String lName = tfLastName.getText();
+    
     if (fName.matches(("[a-zA-Z]+"))) {//"[a-zA-Z0-9]+"))) {
       i++;
       employee.setFirstName(fName);
@@ -90,7 +92,7 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
     
-    employee.setLastName(tfLastName.getText());
+    //employee.setLastName(tfLastName.getText());
     
     if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
       i++;
@@ -100,15 +102,14 @@ public class SecondStepPanel extends StepPanel {
       JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
     }
       
-      if (phoneNumber!= null){
-        i++;
-        employee.setPhoneNumber(phoneNumber);
-      }
-      else
-        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
+    if (phoneNumber!= null){
+      i++;
+      employee.setPhoneNumber(phoneNumber);
+    }
+    else
+      JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
     
     return i==4;
-            
   }
   
 }
