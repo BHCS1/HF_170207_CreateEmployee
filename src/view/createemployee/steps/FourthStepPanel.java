@@ -1,19 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-<<<<<<< HEAD
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-=======
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
->>>>>>> b1024524b579b5e6487d30ee5f45550a3cd2977d
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JLabel;
