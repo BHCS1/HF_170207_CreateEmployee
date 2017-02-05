@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.createemployee.steps;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Employee;
@@ -41,7 +36,4 @@ public class FifthStepPanel extends StepPanel {
   public boolean checking() {
     return true;
   }
-
-  
-  
 }

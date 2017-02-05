@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -16,10 +12,6 @@ import model.Department;
 import model.Employee;
 import model.Job;
 
-/**
- *
- * @author ferenc
- */
 public class ThirdStepPanel extends StepPanel {
   private String[] jobsList, depsList;
   private JComboBox cbJobs, cbDeps;
