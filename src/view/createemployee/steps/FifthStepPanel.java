@@ -1,17 +1,14 @@
+
 package view.createemployee.steps;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Employee;
 
 public class FifthStepPanel extends StepPanel {
-   private JLabel lbInstructionText=new JLabel();
-  
-  private JFormattedTextField tftSalary= new JFormattedTextField();
-  private JPanel pnCheck;
+  private JLabel lbInstructionText=new JLabel();
   
   public FifthStepPanel(String title, Employee employee) {
     super(title, employee);
@@ -21,7 +18,7 @@ public class FifthStepPanel extends StepPanel {
         lbInstructionText.setText("<html><br>Employee's name: "+employee.getFirstName()+" "+employee.getLastName()+"<br><br>Employees's email: "+
                 employee.getEmail()+"<br><br>Employee's phone number: "+employee.getPhoneNumber()+
                 "<br><br>Selected department: "+depName+"<br><br>Selected job title: "+ jobTile+
-                "<br><br>Employee's salary: "+employee.getSalary()+"</html>");
+                "<br><br>Employee's salary: $"+employee.getSalary()+"</html>");
       }
     });
     
@@ -39,5 +36,5 @@ public class FifthStepPanel extends StepPanel {
   public boolean checking() {
     return true;
   }
-  
+
 }

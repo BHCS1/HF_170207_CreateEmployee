@@ -1,3 +1,4 @@
+
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -5,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Department;
 import model.Employee;
@@ -12,7 +14,7 @@ import model.Job;
 
 public class ThirdStepPanel extends StepPanel {
   private String[] jobsList, depsList;
-  private JComboBox cbJobs, cbDeps;
+  private JComboBox cbJobs, cbDeps, cbManagers;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
 
@@ -36,6 +38,11 @@ public class ThirdStepPanel extends StepPanel {
     cbJobs=new JComboBox(jobsList);
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
+    JPanel pnManagers= new JPanel();
+    pnManagers.add(new JLabel("Choose manager:       "));
+    cbManagers=new JComboBox(depsList);
+    pnManagers.add(cbManagers);
+    pn.add(pnManagers);
     add(pn);
   }
   
@@ -50,18 +57,27 @@ public class ThirdStepPanel extends StepPanel {
       for (int i = 0; i < jobListSize; i++) 
         jobsList[i]=jobList.get(i).getTitle();
      
-      int depListSize=depList.size();//Department.getAll().size();
+      int depListSize=depList.size();
       depsList = new String [depListSize];
-      
-      for (int i = 0; i < depListSize; i++)
-        depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
-      
+
+      for (int i = 0; i < depListSize; i++) {
+        depsList[i]= depList.get(i).getName();
+      }
+
     } catch (ClassNotFoundException ex) {
-      ;
+        JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+        System.exit(0);
     } catch (SQLException ex) {;
+
+        JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+        System.exit(0);
+      }
+    
+
       ;
     }
-  }
 
   @Override
   public boolean checking() {
@@ -77,13 +93,11 @@ public class ThirdStepPanel extends StepPanel {
     depName=selectedDepartment.getName();
     jobTile=selectedJob.getTitle();
     
-    int managerId=selectedDepartment.getManagerId();
-    employee.setManagerId(managerId);
+//    int managerId=selectedDepartment.getManagerId();
+//    employee.setManagerId(managerId);
     
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
-    
-    System.out.println(minSalary+" "+maxSalary);
     return true;
   }
   
