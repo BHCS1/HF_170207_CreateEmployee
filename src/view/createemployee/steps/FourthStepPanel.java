@@ -75,7 +75,8 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
       Integer typedValue=null;
       try {
         typedValue=Integer.parseInt(tfSalary.getText());
-        if (typedValue>minSalary && typedValue<maxSalary) {
+        if (typedValue>=minSalary && typedValue<=maxSalary) {
+          employee.setSalary(typedValue);
           return true;
         }
         else

@@ -37,7 +37,10 @@ public class FifthStepPanel extends StepPanel {
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentShown(ComponentEvent e) {
-        lbInstructionText.setText(+minSalary+" to $"+maxSalary+": "+employee.getEmail());
+        lbInstructionText.setText("<html><br>Employee's name: "+employee.getFirstName()+" "+employee.getLastName()+"<br><br>Employees's email: "+
+                employee.getEmail()+"<br><br>Employee's phone number: "+employee.getPhoneNumber()+
+                "<br><br>Selected department: "+depName+"<br><br>Selected job title: "+ jobTile+
+                "<br><br>Employee's salary: "+employee.getSalary()+"</html>");
       }
     });
     
@@ -49,9 +52,7 @@ public class FifthStepPanel extends StepPanel {
   @Override
   public void initComponents() {
     JPanel pn=new JPanel();
-    pn.setLayout(new GridLayout(5,1));
     pn.add((lbInstructionText));
-    pn.add(new JLabel("valami2"));
     add(pn);
   }
 

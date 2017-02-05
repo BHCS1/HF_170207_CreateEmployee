@@ -8,6 +8,7 @@ public abstract class StepPanel extends JPanel {
   protected String title;
   protected Employee employee;
   protected static Integer minSalary=null, maxSalary=null;
+  protected static String depName,jobTile;
   
   public StepPanel(String title, Employee employee) {
     this.title=title;
