@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -15,10 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 import model.Employee;
 
-/**
- *
- * @author ferenc
- */
+
 public class SecondStepPanel extends StepPanel {
 
   private JTextField tfEmail;
@@ -29,8 +22,6 @@ public class SecondStepPanel extends StepPanel {
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
     initComponents();
- 
-
   }
   
   @Override
@@ -65,8 +56,6 @@ public class SecondStepPanel extends StepPanel {
     tfFirstName.setColumns(25);
     tfLastName.setColumns(25);
     tfEmail.setColumns(25);
-    
-    
     add(pn);
   }
 
@@ -77,20 +66,22 @@ public class SecondStepPanel extends StepPanel {
     String phoneNumber = (String)ftfPhone.getValue();
     String fName = tfFirstName.getText();
     String lName = tfLastName.getText();
-    if (fName.matches(("[a-zA-Z0-9]+"))) {
+    if (fName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű]+"))) {
       i++;
+      fName=fName.substring(0, 1).toUpperCase() + fName.substring(1);
       employee.setFirstName(fName);
+      tfFirstName.setText(fName);
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    if (lName.matches(("[a-zA-Z0-9]+"))) {
+    if (lName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű]+"))) {
       i++;
-      employee.setFirstName(lName);
+      lName=lName.substring(0, 1).toUpperCase() + lName.substring(1);
+      employee.setLastName(lName);
+      tfLastName.setText(lName);
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    
-    employee.setLastName(tfLastName.getText());
     
     if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
       i++;

@@ -230,6 +230,11 @@ public class Employee extends Model {
   public void setManagerId(int managerId) {
     this.managerId = managerId;
   }
+
+  @Override
+  public String toString() {
+    return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", managerId=" + managerId + ", salary=" + salary + ", departmentId=" + departmentId + ", departmentName=" + departmentName + ", department=" + department + '}';
+  }
   
   
 }
