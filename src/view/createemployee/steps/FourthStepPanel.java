@@ -19,10 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.text.NumberFormatter;
 import model.Employee;
 
-/**
- *
- * @author ferenc
- */
 public class FourthStepPanel extends StepPanel {
   
   private JFormattedTextField tftSalary= new JFormattedTextField();
@@ -53,15 +49,15 @@ public class FourthStepPanel extends StepPanel {
     pnSalary.add(tftSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
-    pnCheck.add(new JLabel());
     pn.add(pnCheck);
     add(pn);
     
   }
+  
 
   @Override
   public boolean checking() {
-
+    pnCheck.add(new JLabel(minSalary+""));
       return true;
        
 

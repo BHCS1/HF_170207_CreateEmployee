@@ -74,27 +74,27 @@ public class SecondStepPanel extends StepPanel {
   @Override
   public boolean checking() {
     int i=0;
-//    String email = tfEmail.getText();
-//    String phoneNumber = (String)ftfPhone.getValue();
-//    employee.setFirstName(tfFirstName.getText());
-//    employee.setLastName(tfLastName.getText());
-//    
-//    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
-//      i++;
-//      employee.setEmail(email);
-//    }
-//    else {
-//      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-//    }
-//      
-//      if (phoneNumber!= null){
-//        i++;
-//        employee.setPhoneNumber(phoneNumber);
-//      }
-//      else
-//        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
-//    
-    return i==0;
+    String email = tfEmail.getText();
+    String phoneNumber = (String)ftfPhone.getValue();
+    employee.setFirstName(tfFirstName.getText());
+    employee.setLastName(tfLastName.getText());
+    
+    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+      i++;
+      employee.setEmail(email);
+    }
+    else {
+      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+      
+      if (phoneNumber!= null){
+        i++;
+        employee.setPhoneNumber(phoneNumber);
+      }
+      else
+        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
+    
+    return i==2;
             
   }
   
