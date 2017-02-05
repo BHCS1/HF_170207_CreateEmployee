@@ -73,8 +73,8 @@ public class FourthStepPanel extends StepPanel {
         }
       }
       catch (NullPointerException|NumberFormatException e) {
-          JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-          return false;
+        JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+        return false;
       }
       return true;
   }

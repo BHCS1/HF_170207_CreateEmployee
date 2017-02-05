@@ -7,7 +7,7 @@ import model.Employee;
 public abstract class StepPanel extends JPanel {
   protected String title;
   protected Employee employee;
-  protected Integer minSalary=null, maxSalary=null;
+  protected static Integer minSalary=null, maxSalary=null;
   
   public StepPanel(String title, Employee employee) {
     this.title=title;
