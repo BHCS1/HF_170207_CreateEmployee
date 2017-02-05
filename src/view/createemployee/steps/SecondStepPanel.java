@@ -3,6 +3,8 @@ package view.createemployee.steps;
 
 import java.awt.FlowLayout;
 import java.text.ParseException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +19,8 @@ public class SecondStepPanel extends StepPanel {
   private JTextField tfFirstName;
   private JTextField tfLastName;
   private JFormattedTextField ftfPhone;
+  private final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
   
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
@@ -84,7 +88,7 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
-    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+    if (emailValidate(email)) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
       i++;
       employee.setEmail(email);
     }
@@ -100,6 +104,12 @@ public class SecondStepPanel extends StepPanel {
       JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
     
     return i==4;
+  }
+  
+  boolean emailValidate(String email){
+    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+    return matcher.find();
+    
   }
   
 }
