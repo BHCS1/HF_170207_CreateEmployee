@@ -77,7 +77,8 @@ public class ThirdStepPanel extends StepPanel {
     depName=selectedDepartment.getName();
     jobTile=selectedJob.getTitle();
     
-    employee.setManagerId(200);
+    int managerId=selectedDepartment.getManagerId();
+    employee.setManagerId(managerId);
     
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
