@@ -39,7 +39,7 @@ public class ThirdStepPanel extends StepPanel {
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
     JPanel pnManagers= new JPanel();
-    pnManagers.add(new JLabel("Choose manager:      "));
+    pnManagers.add(new JLabel("Choose manager:       "));
     cbManagers=new JComboBox(depsList);
     pnManagers.add(cbManagers);
     pn.add(pnManagers);
@@ -93,8 +93,8 @@ public class ThirdStepPanel extends StepPanel {
     depName=selectedDepartment.getName();
     jobTile=selectedJob.getTitle();
     
-    int managerId=selectedDepartment.getManagerId();
-    employee.setManagerId(managerId);
+//    int managerId=selectedDepartment.getManagerId();
+//    employee.setManagerId(managerId);
     
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();

@@ -67,7 +67,7 @@ public class SecondStepPanel extends StepPanel {
     String fName = tfFirstName.getText();
     String lName = tfLastName.getText();
 
-    if (fName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
+    if (fName.matches(("[a-zA-Z|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
       i++;
       fName=fName.substring(0, 1).toUpperCase() + fName.substring(1);
       employee.setFirstName(fName);
@@ -75,7 +75,7 @@ public class SecondStepPanel extends StepPanel {
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    if (lName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
+    if (lName.matches(("[a-zA-Z|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
       i++;
       lName=lName.substring(0, 1).toUpperCase() + lName.substring(1);
       employee.setLastName(lName);
