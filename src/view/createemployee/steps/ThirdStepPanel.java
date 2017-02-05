@@ -79,8 +79,11 @@ public class ThirdStepPanel extends StepPanel {
   public boolean checking() {
     employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
     employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
-    minSalary=jobList.get(cbJobs.getSelectedIndex()).getMinSalary();
-    maxSalary=jobList.get(cbJobs.getSelectedIndex()).getMaxSalary();
+    
+    Job selectedJob=jobList.get(cbJobs.getSelectedIndex());
+    minSalary=selectedJob.getMinSalary();
+    maxSalary=selectedJob.getMaxSalary();
+    
     System.out.println(minSalary+" "+maxSalary);
     return true;
   }
