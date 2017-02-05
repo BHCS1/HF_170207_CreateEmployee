@@ -233,7 +233,8 @@ public class Employee extends Model {
 
   @Override
   public String toString() {
-    return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", managerId=" + managerId + ", salary=" + salary + ", departmentId=" + departmentId + ", departmentName=" + departmentName + ", department=" + department + '}';
+    //return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", managerId=" + managerId + ", salary=" + salary + ", departmentId=" + departmentId + ", departmentName=" + departmentName + ", department=" + department + '}';
+    return firstName+" "+lastName;
   }
   
   

@@ -2,12 +2,17 @@
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javafx.scene.control.ComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,6 +28,7 @@ public class ThirdStepPanel extends StepPanel {
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
   private Department department;
+  private ArrayList<Employee> manList=null;
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
@@ -31,22 +37,34 @@ public class ThirdStepPanel extends StepPanel {
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentShown(ComponentEvent e) {
-        int choosedDep=cbDeps.getSelectedIndex();
-        String choosedDepName= depList.get(choosedDep).getName();
-        int choosedDepId= depList.get(choosedDep).getId();
-//        Department dep = new Department(choosedDepId, choosedDepName);
-        ArrayList<Employee> manList= new ArrayList<>();
-        try {
-          manList=department.getManagers();
-        } catch (ClassNotFoundException ex) {
-          System.out.println("Hiba1");
-        } catch (SQLException ex) {
-          System.out.println("Hiba2");
-        }
-        System.out.println(manList);
-        
+        updateCbManagers();
       }
     });
+    
+    cbDeps.addItemListener(new ItemListener() {
+      @Override
+      public void itemStateChanged(ItemEvent e) {       
+        updateCbManagers();
+      }
+    });
+  }
+  
+  private void updateCbManagers() {
+    int choosedDep=cbDeps.getSelectedIndex();
+    Department choosedDepartment=depList.get(choosedDep);
+    try {
+      DefaultComboBoxModel cbm=(DefaultComboBoxModel)cbManagers.getModel();
+      cbm.removeAllElements();
+      
+      manList = choosedDepartment.getManagers(); // new ArrayList<>();
+      
+      for (Employee manager : manList) {
+        cbm.addElement(manager);
+      }
+
+    } catch (ClassNotFoundException|SQLException ex) {
+      System.out.println("Hiba: "+ex.getMessage());
+    }
   }
   
   @Override
@@ -66,7 +84,7 @@ public class ThirdStepPanel extends StepPanel {
     pn.add(pnJobs);
     JPanel pnManagers= new JPanel();
     pnManagers.add(new JLabel("Choose manager:        "));
-    cbManagers=new JComboBox(depsList);
+    cbManagers=new JComboBox();
     pnManagers.add(cbManagers);
     pn.add(pnManagers);
     add(pn);
