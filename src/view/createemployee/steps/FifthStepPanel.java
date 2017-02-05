@@ -31,7 +31,6 @@ public class FifthStepPanel extends StepPanel {
   public FifthStepPanel(String title, Employee employee) {
     super(title, employee);
     this.employee=employee;
-    initComponents();
 
 
   }
