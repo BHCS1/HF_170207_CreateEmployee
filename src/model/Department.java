@@ -10,10 +10,17 @@ public class Department extends Model {
 
   private int id;
   private String name;
+  private int managerId;
 
   public Department(int id, String name) {
     this.id = id;
     this.name = name;
+  }
+
+  public Department(int id, String name, int managerId) {
+    this.id = id;
+    this.name = name;
+    this.managerId = managerId;
   }
 
   public static ArrayList<Department> getAll() throws ClassNotFoundException, SQLException {
@@ -21,7 +28,8 @@ public class Department extends Model {
     ArrayList<Department> list = new ArrayList<>();
 
     String query = "SELECT department_name AS depName, "
-            + "department_id AS id "
+            + "department_id AS id, "
+            + "manager_id AS managerId "
             + "FROM departments "
             + "ORDER BY depName";
 
@@ -31,7 +39,8 @@ public class Department extends Model {
       list.add(
         new Department(
           result.getInt("id"),
-          result.getString("depName")
+          result.getString("depName"),
+          result.getInt("managerId")
         )
       );
     }
@@ -45,6 +54,10 @@ public class Department extends Model {
     
     public String getName() {
     return name;
+  }
+
+    public int getManagerId() {
+    return managerId;
   }
 
   public int getSumSalary() throws SQLException, ClassNotFoundException {

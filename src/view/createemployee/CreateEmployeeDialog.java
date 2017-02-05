@@ -5,7 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import model.Employee;
 import view.createemployee.steps.FifthStepPanel;
@@ -15,14 +17,12 @@ import view.createemployee.steps.SecondStepPanel;
 import view.createemployee.steps.ThirdStepPanel;
 
 public class CreateEmployeeDialog extends JDialog {
-  private Integer employeeId=null;
   private JTabbedPane tb = new JTabbedPane();
   private ArrayList<StepPanel> stepPanels=new ArrayList<>();
-  private final CreateEmployeeDialog THIS_DIALOG = this;
   
-  private Employee employee=new Employee();
+  private Employee employee=null;
 
-  public CreateEmployeeDialog(Frame owner, Integer employeeId) {
+  public CreateEmployeeDialog(Frame owner, Employee employee) {
     super(owner, true);
     this.setTitle("Create new employee");
     this.setSize(500, 400);
@@ -31,20 +31,16 @@ public class CreateEmployeeDialog extends JDialog {
     tb.setFocusable(false);
     tb.setEnabled(false);
     
-    this.employeeId=employeeId;
+    this.employee=employee;
     buildTabbedPane();
   }
 
   private void fillTAbbedPane() {
-    
-
     stepPanels.add(new FirstStepPanel("Instructions", employee));
     stepPanels.add(new SecondStepPanel("Person details", employee));
     stepPanels.add(new ThirdStepPanel("Department and job", employee));
     stepPanels.add(new FourthStepPanel("Salary", employee));
     stepPanels.add(new FifthStepPanel("Summary", employee));
-
-
   }
 
   @SuppressWarnings("Convert2Lambda")
@@ -106,7 +102,7 @@ public class CreateEmployeeDialog extends JDialog {
       btCancel.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
-          THIS_DIALOG.dispose();
+          closeDialog();
         }
       });
       pnButtons.add(btCancel);
@@ -119,18 +115,22 @@ public class CreateEmployeeDialog extends JDialog {
         btnFinish.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
+            int returnVal=-1;
             try {
-              int returnVal=employee.save();
-              employeeId=returnVal;
               java.util.Date utilDate = new java.util.Date();
               java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
               employee.setHireDate(sqlDate);
+              returnVal=employee.save();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
-
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            
+            if(returnVal>0)
+              closeDialog();
           }
         });
       }
@@ -141,6 +141,9 @@ public class CreateEmployeeDialog extends JDialog {
     }
     // set the focus to the first panel
     tb.getComponent(0).setFocusable(true);
-
+  }
+  
+  public void closeDialog() {
+    this.dispose();
   }
 }

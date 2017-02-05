@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -17,15 +20,12 @@ public class ThirdStepPanel extends StepPanel {
   private JComboBox cbJobs, cbDeps;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
-  
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
     initComponents();
   }
   
-
-
   @Override
   public void initComponents() {
     datas();
@@ -42,43 +42,65 @@ public class ThirdStepPanel extends StepPanel {
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
     add(pn);
-
   }
   
   void datas(){
-        try {
+    try {
       depList=Department.getAll();
       jobList=Job.getAll();
+      
       int jobListSize=jobList.size();
       jobsList = new String [jobListSize];
+      
       for (int i = 0; i < jobListSize; i++) 
-       jobsList[i]=jobList.get(i).getTitle();
+        jobsList[i]=jobList.get(i).getTitle();
      
       int depListSize=depList.size();
       depsList = new String [depListSize];
+<<<<<<< HEAD
       for (int i = 0; i < depListSize; i++) {
         depsList[i]= depList.get(i).getName();
       }
+=======
+      
+      for (int i = 0; i < depListSize; i++)
+        depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
+      
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
     } catch (ClassNotFoundException ex) {
         JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
         System.out.println(ex.getMessage());
         System.exit(0);
     } catch (SQLException ex) {;
+<<<<<<< HEAD
         JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
         System.out.println(ex.getMessage());
         System.exit(0);
       }
     
+=======
+      ;
+    }
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
   }
 
   @Override
   public boolean checking() {
-    employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
-    employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
-    depName=depList.get(cbDeps.getSelectedIndex()).getName();
-    jobTile=jobList.get(cbJobs.getSelectedIndex()).getTitle();
-    employee.setManagerId(200);
-    Job selectedJob=jobList.get(cbJobs.getSelectedIndex());
+    int cbDepsSelectedIndex=cbDeps.getSelectedIndex();
+    int cbJobsSelectedIndex=cbJobs.getSelectedIndex();
+    
+    Department selectedDepartment=depList.get(cbDepsSelectedIndex);
+    Job selectedJob=jobList.get(cbJobsSelectedIndex);
+    
+    employee.setJobId(selectedJob.getId());
+    employee.setDepartmentId(selectedDepartment.getId());
+    
+    depName=selectedDepartment.getName();
+    jobTile=selectedJob.getTitle();
+    
+    int managerId=selectedDepartment.getManagerId();
+    employee.setManagerId(managerId);
+    
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
     return true;

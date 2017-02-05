@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 package view.createemployee.steps;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+<<<<<<< HEAD
+=======
+import javax.swing.JFormattedTextField;
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Employee;
@@ -36,4 +43,8 @@ public class FifthStepPanel extends StepPanel {
   public boolean checking() {
     return true;
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 }

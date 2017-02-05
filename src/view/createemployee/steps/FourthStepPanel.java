@@ -1,12 +1,13 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.text.NumberFormat;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,12 +17,11 @@ import javax.swing.text.NumberFormatter;
 import model.Employee;
 import static view.createemployee.steps.StepPanel.minSalary;
 
-public class FourthStepPanel extends StepPanel implements ActionListener{
+public class FourthStepPanel extends StepPanel {
   
   private JTextField tfSalary;
   private JPanel pnCheck;
   private JLabel lbInstructionText=new JLabel();
-
   
   public FourthStepPanel(String title, Employee employee) {
     super(title, employee);
@@ -34,8 +34,6 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
         lbInstructionText.setText("Please type the monthly salary from $"+minSalary+" to $"+maxSalary+": ");
       }
     });
-
-
   }
 
   @Override
@@ -56,32 +54,23 @@ public class FourthStepPanel extends StepPanel implements ActionListener{
     add(pn);
   }
 
-  
-
   @Override
   public boolean checking() {
-      Integer typedValue=null;
-      try {
-        typedValue=Integer.parseInt(tfSalary.getText());
-        if (typedValue>=minSalary && typedValue<=maxSalary) {
-          employee.setSalary(typedValue);
-          return true;
-        }
-        else
-          JOptionPane.showMessageDialog(this, "Wrong salary! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+    Integer typedValue=null;
+    try {
+      typedValue=Integer.parseInt(tfSalary.getText());
+      if (typedValue>=minSalary && typedValue<=maxSalary) {
+        employee.setSalary(typedValue);
+        return true;
       }
-      catch (NullPointerException|NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-        return false;
-      }
+      else
+        JOptionPane.showMessageDialog(this, "Wrong salary! Please select from this interval: "+minSalary+"-"+maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+    }
+    catch (NullPointerException|NumberFormatException e) {
+      JOptionPane.showMessageDialog(this, "Invalid format!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
       return false;
+    }
+    return false;
   }
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    checking();
-  }
-
-  
   
 }

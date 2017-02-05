@@ -7,11 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.Employee;
 
@@ -96,17 +92,17 @@ public class View extends JFrame implements ActionListener {
     lMessage.setText(" ");
     timerMessage.stop();
     if (e.getSource() == btRegister) {
-      Integer employeeId = -1;
-      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employeeId);
+      Employee employee = new Employee();
+      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employee);
       ced.setVisible(true);
-      if (employeeId > 0) {
+      if (employee.getID() > 0) {
         try {
           EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
           setEmployees(etm);
           spTable.revalidate();
           spTable.repaint();
           int index = 0;
-          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employeeId)
+          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employee.getID())
             index++;
           if (index < tEmployees.getRowCount()) {
             tEmployees.setRowSelectionInterval(index, index);
