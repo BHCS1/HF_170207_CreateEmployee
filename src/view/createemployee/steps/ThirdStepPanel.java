@@ -2,8 +2,12 @@
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -11,16 +15,38 @@ import javax.swing.JPanel;
 import model.Department;
 import model.Employee;
 import model.Job;
+import static view.createemployee.steps.StepPanel.minSalary;
 
 public class ThirdStepPanel extends StepPanel {
   private String[] jobsList, depsList;
   private JComboBox cbJobs, cbDeps, cbManagers;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
+  private Department department;
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
     initComponents();
+    
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentShown(ComponentEvent e) {
+        int choosedDep=cbDeps.getSelectedIndex();
+        String choosedDepName= depList.get(choosedDep).getName();
+        int choosedDepId= depList.get(choosedDep).getId();
+//        Department dep = new Department(choosedDepId, choosedDepName);
+        ArrayList<Employee> manList= new ArrayList<>();
+        try {
+          manList=department.getManagers();
+        } catch (ClassNotFoundException ex) {
+          System.out.println("Hiba1");
+        } catch (SQLException ex) {
+          System.out.println("Hiba2");
+        }
+        System.out.println(manList);
+        
+      }
+    });
   }
   
   @Override
