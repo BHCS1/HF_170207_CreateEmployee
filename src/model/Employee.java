@@ -95,7 +95,7 @@ public class Employee extends Model {
   }
   
   private static int getNextId() throws SQLException, ClassNotFoundException {
-    String query = "SELECT EMPLOYEES_SEQ.nextval FROM dual;";
+    String query = "SELECT EMPLOYEES_SEQ.nextval FROM dual";//";
     ResultSet result = connection.createStatement().executeQuery(query);
     result.next();
     int nextId = result.getInt("nextval");
@@ -117,7 +117,7 @@ public class Employee extends Model {
             + "job_id, "
             + "salary, "
             + "manager_id, "
-            + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?);");
+            + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?)");//");
     
     ps.setInt(1, nextId);
     ps.setString(2, getFirstName());

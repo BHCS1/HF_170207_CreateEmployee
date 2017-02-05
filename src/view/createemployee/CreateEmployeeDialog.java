@@ -17,14 +17,14 @@ import view.createemployee.steps.SecondStepPanel;
 import view.createemployee.steps.ThirdStepPanel;
 
 public class CreateEmployeeDialog extends JDialog {
-  private Integer employeeId=null;
+  //private Integer employeeId=null;
   private JTabbedPane tb = new JTabbedPane();
   private ArrayList<StepPanel> stepPanels=new ArrayList<>();
   private final CreateEmployeeDialog THIS_DIALOG = this;
   
-  private Employee employee=new Employee();
+  private Employee employee=null;
 
-  public CreateEmployeeDialog(Frame owner, Integer employeeId) {
+  public CreateEmployeeDialog(Frame owner, Employee employee) {
     super(owner, true);
     this.setTitle("Create new employee");
     this.setSize(500, 400);
@@ -33,7 +33,8 @@ public class CreateEmployeeDialog extends JDialog {
     tb.setFocusable(false);
     tb.setEnabled(false);
     
-    this.employeeId=employeeId;
+    //this.employeeId=employeeId;
+    this.employee=employee;
     buildTabbedPane();
   }
 
