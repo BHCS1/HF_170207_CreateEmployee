@@ -31,7 +31,7 @@ public class View extends JFrame implements ActionListener {
 
   public View() {
     super("Data of the employees");
-    setSize(800, 600);
+    setSize(800, 400);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     lMessage.setFont(new Font("Ariel", Font.BOLD, 16));
     lMessage.setForeground(Color.GREEN);

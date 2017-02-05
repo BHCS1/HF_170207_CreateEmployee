@@ -39,6 +39,13 @@ public class Department extends Model {
     disconnect();
     return list;
   }
+    public int getId() {
+    return id;
+  }
+    
+    public String getName() {
+    return name;
+  }
 
   public int getSumSalary() throws SQLException, ClassNotFoundException {
     connect();

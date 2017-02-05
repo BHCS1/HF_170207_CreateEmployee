@@ -2,17 +2,13 @@ package view.createemployee.steps;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLClientInfoException;
 import model.Employee;
 
 public abstract class StepPanel extends JPanel {
-  private String title;
-  private Employee employee;
+  protected String title;
+  protected Employee employee;
+  protected static Integer minSalary=null, maxSalary=null;
   
-  public StepPanel(String title){
-    this.title=title;
-  }
-
   public StepPanel(String title, Employee employee) {
     this.title=title;
     this.employee=employee;
@@ -27,7 +23,7 @@ public abstract class StepPanel extends JPanel {
     pnTitle.add(lbTitle);
     this.add(pnTitle, BorderLayout.PAGE_START);
     
-    initComponents();
+
   }
 
   public String getTitle() {
