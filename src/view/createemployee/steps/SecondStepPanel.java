@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -14,10 +11,6 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 import model.Employee;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 public class SecondStepPanel extends StepPanel {
 
   private JTextField tfEmail;
@@ -73,12 +66,8 @@ public class SecondStepPanel extends StepPanel {
     String phoneNumber = (String)ftfPhone.getValue();
     String fName = tfFirstName.getText();
     String lName = tfLastName.getText();
-<<<<<<< HEAD
+
     if (fName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
-=======
-    
-    if (fName.matches(("[a-zA-Z]+"))) {//"[a-zA-Z0-9]+"))) {
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
       i++;
       fName=fName.substring(0, 1).toUpperCase() + fName.substring(1);
       employee.setFirstName(fName);
@@ -86,27 +75,16 @@ public class SecondStepPanel extends StepPanel {
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-<<<<<<< HEAD
     if (lName.matches(("[a-zA-Z0-9|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
       i++;
       lName=lName.substring(0, 1).toUpperCase() + lName.substring(1);
       employee.setLastName(lName);
       tfLastName.setText(lName);
-=======
-    if (lName.matches(("[a-zA-Z]+"))) {//"[a-zA-Z0-9]+"))) {
-      i++;
-      employee.setLastName(lName);//FirstName(lName);
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    
-<<<<<<< HEAD
-=======
-    //employee.setLastName(tfLastName.getText());
-    
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
-    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+
+    if (email.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")) {
       i++;
       employee.setEmail(email);
     }

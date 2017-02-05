@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -57,32 +54,25 @@ public class ThirdStepPanel extends StepPanel {
      
       int depListSize=depList.size();
       depsList = new String [depListSize];
-<<<<<<< HEAD
+
       for (int i = 0; i < depListSize; i++) {
         depsList[i]= depList.get(i).getName();
       }
-=======
-      
-      for (int i = 0; i < depListSize; i++)
-        depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
-      
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
+
     } catch (ClassNotFoundException ex) {
         JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
         System.out.println(ex.getMessage());
         System.exit(0);
     } catch (SQLException ex) {;
-<<<<<<< HEAD
+
         JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
         System.out.println(ex.getMessage());
         System.exit(0);
       }
     
-=======
+
       ;
     }
->>>>>>> 1115d9dc5fb452e6e99f897935b03d684b9072ce
-  }
 
   @Override
   public boolean checking() {
