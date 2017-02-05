@@ -24,13 +24,11 @@ public class View extends JFrame implements ActionListener {
   private JButton btRegister = new JButton("Register new employee");
   private JLabel lMessage = new JLabel(" ", SwingConstants.RIGHT);
   Timer timerMessage = new Timer(3000, this);
-  DefaultTableCellRenderer buttonAndCenterRenderer = new DefaultTableCellRenderer() {
+  DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+  DefaultTableCellRenderer buttonRenderer = new DefaultTableCellRenderer() {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-      if (column == 3) {
-        return (TableButton) value;
-      }
-      return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+      return (TableButton) value;
     }
 
   };
@@ -48,7 +46,7 @@ public class View extends JFrame implements ActionListener {
     pnUp.setSize(590, 50);
     add(pnUp, BorderLayout.PAGE_START);
     add(spTable);
-    buttonAndCenterRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+    centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
     tEmployees.addMouseListener(new JTableButtonMouseListener(tEmployees));
     tEmployees.setAutoCreateRowSorter(true);
     btRegister.addActionListener(this);
@@ -86,9 +84,10 @@ public class View extends JFrame implements ActionListener {
 
   public void setEmployees(EmployeeTableModel employeeTableModel) {
     tEmployees.setModel(employeeTableModel);
-    for (int i = 0; i < tEmployees.getColumnCount(); i++) {
-      tEmployees.getColumnModel().getColumn(i).setCellRenderer(buttonAndCenterRenderer);
+    for (int i = 0; i < 3; i++) {
+      tEmployees.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
     }
+    tEmployees.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
     tEmployees.getColumnModel().getColumn(3).setPreferredWidth(10);
   }
 
@@ -138,7 +137,7 @@ public class View extends JFrame implements ActionListener {
       int row = e.getY() / table.getRowHeight(); //get the row of the button
 
       /*Checking the row or column is valid or not*/
-      if (row < table.getRowCount() && row >= 0 && column == 3) {
+      if (row < table.getRowCount() && row >= 0 && column >= 0 && column < table.getColumnCount()) {
         Object value = table.getValueAt(row, column);
         if (value instanceof TableButton) {
           /*perform a click event*/
