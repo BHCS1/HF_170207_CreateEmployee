@@ -63,7 +63,7 @@ public class FourthStepPanel extends StepPanel {
 //      }
 //        else
 //      return true;
-Integer typedValue=null;
+      Integer typedValue=null;
       try {
         typedValue=Integer.parseInt(tfSalary.getText());
         System.out.println(typedValue);
