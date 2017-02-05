@@ -96,7 +96,6 @@ public class Employee extends Model {
   
   private static int getNextId() throws SQLException, ClassNotFoundException {
     String query = "SELECT EMPLOYEES_SEQ.nextval FROM dual;";
-    query="SELECT COUNT(employee_id)+1 FROM employees";
     ResultSet result = connection.createStatement().executeQuery(query);
     result.next();
     int nextId = result.getInt("nextval");
