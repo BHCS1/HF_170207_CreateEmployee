@@ -126,10 +126,11 @@ public class CreateEmployeeDialog extends JDialog {
               java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
               employee.setHireDate(sqlDate);
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException ex) {
-                JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
-
+              System.out.println(ex.getMessage());
+              JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
             }
           }
         });
