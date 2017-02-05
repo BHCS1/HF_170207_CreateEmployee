@@ -28,11 +28,11 @@ public class Department extends Model {
     connect();
     ArrayList<Department> list = new ArrayList<>();
 
-    String query = "SELECT department_name AS depName, "
-            + "department_id AS id, "
-            + "manager_id AS managerId"
-            + "FROM departments "
-            + "ORDER BY depName";
+    String query = "SELECT department_name AS depName, " +
+            "department_id AS id, " +
+            "manager_id AS managerId " +
+            "FROM departments " +
+            "ORDER BY depName";
 
     ResultSet result = connection.createStatement().executeQuery(query);
 
@@ -96,10 +96,6 @@ public class Department extends Model {
     
     public String getName() {
     return name;
-  }
-
-    public int getManagerId() {
-    return managerId;
   }
 
   public int getSumSalary() throws SQLException, ClassNotFoundException {
