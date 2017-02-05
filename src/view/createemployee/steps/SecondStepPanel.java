@@ -83,7 +83,7 @@ public class SecondStepPanel extends StepPanel {
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    if (lName.matches(("[a-zA-Z0-9]+"))) {
+    if (lName.matches(("[a-zA-Z]+"))) {//"[a-zA-Z0-9]+"))) {
       i++;
       employee.setLastName(lName);//FirstName(lName);
     }
