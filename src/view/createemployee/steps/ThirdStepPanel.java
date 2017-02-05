@@ -31,8 +31,6 @@ public class ThirdStepPanel extends StepPanel {
     initComponents();
   }
   
-
-
   @Override
   public void initComponents() {
     datas();
@@ -49,39 +47,48 @@ public class ThirdStepPanel extends StepPanel {
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
     add(pn);
-
   }
   
   void datas(){
-        try {
+    try {
       depList=Department.getAll();
       jobList=Job.getAll();
+      
       int jobListSize=jobList.size();
       jobsList = new String [jobListSize];
+      
       for (int i = 0; i < jobListSize; i++) 
-       jobsList[i]=jobList.get(i).getTitle();
+        jobsList[i]=jobList.get(i).getTitle();
      
       int depListSize=depList.size();//Department.getAll().size();
       depsList = new String [depListSize];
-      for (int i = 0; i < depListSize; i++) {
+      
+      for (int i = 0; i < depListSize; i++)
         depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
-      }
+      
     } catch (ClassNotFoundException ex) {
       ;
     } catch (SQLException ex) {;
       ;
-      }
-    
+    }
   }
 
   @Override
   public boolean checking() {
-    employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
-    employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
-    depName=depList.get(cbDeps.getSelectedIndex()).getName();
-    jobTile=jobList.get(cbJobs.getSelectedIndex()).getTitle();
+    int cbDepsSelectedIndex=cbDeps.getSelectedIndex();
+    int cbJobsSelectedIndex=cbJobs.getSelectedIndex();
+    
+    Department selectedDepartment=depList.get(cbDepsSelectedIndex);
+    Job selectedJob=jobList.get(cbJobsSelectedIndex);
+    
+    employee.setJobId(selectedJob.getId());
+    employee.setDepartmentId(selectedDepartment.getId());
+    
+    depName=selectedDepartment.getName();
+    jobTile=selectedJob.getTitle();
+    
     employee.setManagerId(200);
-    Job selectedJob=jobList.get(cbJobs.getSelectedIndex());
+    
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
     
