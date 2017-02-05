@@ -49,15 +49,22 @@ public class FourthStepPanel extends StepPanel {
     pnSalary.add(tftSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
+    pnCheck.add(new JLabel());
     pn.add(pnCheck);
     add(pn);
     
   }
   
+  
 
   @Override
   public boolean checking() {
-    pnCheck.add(new JLabel(minSalary+""));
+      int typedValue= (Integer)tftSalary.getValue();
+      if (typedValue<minSalary || typedValue>maxSalary) {
+        JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+        return false;
+      }
+        else
       return true;
        
 
