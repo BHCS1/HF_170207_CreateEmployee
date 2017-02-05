@@ -36,7 +36,6 @@ public class SecondStepPanel extends StepPanel {
   
   @Override
   public void initComponents() {
-    employee.getEmail();
     JPanel pn=new JPanel();
     pn.setLayout(new FlowLayout(0));
     JPanel pnFname= new JPanel();
@@ -62,14 +61,8 @@ public class SecondStepPanel extends StepPanel {
       ftfPhone = new JFormattedTextField(mf);
       pnPhone.add(ftfPhone);
     } catch (ParseException ex) {
-      ;
     }
-    
-
     pn.add(pnPhone);
-
-
- 
     tfFirstName.setColumns(25);
     tfLastName.setColumns(25);
     tfEmail.setColumns(25);
@@ -81,27 +74,30 @@ public class SecondStepPanel extends StepPanel {
   @Override
   public boolean checking() {
     int i=0;
-    String email = tfEmail.getText();
-    String name = tfFirstName.getText()+tfLastName.getText();
-    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
-      i++;
-      employee.setEmail(email);
-    }
-    else {
-      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-    }
-//      String phoneNumber = (String)ftfPhone.getValue();
+//    String email = tfEmail.getText();
+//    String phoneNumber = (String)ftfPhone.getValue();
+////    employee.setFirstName(tfFirstName.getText());
+////    employee.setLastName(tfLastName.getText());
+//    
+//    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+//      i++;
+//      //employee.setEmail(email);
+//    }
+//    else {
+//      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+//    }
+//      
 //      if (phoneNumber!= null){
 //        System.out.println(phoneNumber);
 //        i++;
-//        employee.setPhoneNumber(phoneNumber);
+//        //employee.setPhoneNumber(phoneNumber);
 //      }
 //      else
 //        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 //
 //        
 //        
-    return i==1;
+    return i==0;
             
   }
   

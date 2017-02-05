@@ -5,9 +5,12 @@
  */
 package view.createemployee.steps;
 
+import java.awt.FlowLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import model.Department;
 import model.Employee;
 import model.Job;
@@ -20,25 +23,49 @@ public class ThirdStepPanel extends StepPanel {
   private String title;
   private Employee employee;
   private String[] jobsList, depsList;
+  private JComboBox cbJobs, cbDeps;
+  private ArrayList<Job> jobList;
+  private ArrayList<Department> depList;
+  
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
     this.title = title;
     this.employee = employee;
+
   }
   
 
 
   @Override
   public void initComponents() {
-    try {
-      ArrayList<Department> depList=Department.getAll();
-      ArrayList<Job> jobList=Job.getAll();
-//      int jobListSize=Job.getAll().size();
-//      jobsList = new String [jobListSize];
-//      for (int i = 0; i < jobListSize; i++) 
-//        jobsList[i]=Job.getAll().get(i).getTitle();
-//      
+    datas();
+
+    JPanel pn=new JPanel();
+    pn.setLayout(new FlowLayout(0));
+    JPanel pnDeps= new JPanel();
+    pnDeps.add(new JLabel("Choose department:   "));
+    cbDeps=new JComboBox(depsList);
+    pnDeps.add(cbDeps);
+    pn.add(pnDeps);
+    JPanel pnJobs= new JPanel();
+    pnJobs.add(new JLabel("Choose Job title:          "));
+    cbJobs=new JComboBox(jobsList);
+    pnJobs.add(cbJobs);
+    pn.add(pnJobs);
+    add(pn);
+
+  }
+  
+  void datas(){
+        try {
+      depList=Department.getAll();
+      jobList=Job.getAll();
+      int jobListSize=jobList.size();
+      jobsList = new String [jobListSize];
+      for (int i = 0; i < jobListSize; i++) 
+       jobsList[i]=jobList.get(i).getTitle();
+     
       int depListSize=depList.size();//Department.getAll().size();
       depsList = new String [depListSize];
       for (int i = 0; i < depListSize; i++) {
@@ -48,16 +75,16 @@ public class ThirdStepPanel extends StepPanel {
       System.out.println("?");
     } catch (SQLException ex) {
       ex.printStackTrace();
-      //System.out.println("H??");
+      ;
       }
-  //  JComboBox cbJobs=new JComboBox(jobsList);
-    JComboBox cbDeps=new JComboBox(depsList);
-    add(cbDeps);
     
   }
 
   @Override
   public boolean checking() {
+    employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
+ //   employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
+
     return true;
   }
   

@@ -14,7 +14,7 @@ public class Employee extends Model {
   private String email;
   private String phoneNumber;
   private Date hireDate;
-  private int jobId;
+  private String jobId;
   private int managerId;
   private int salary;
   private int departmentId;
@@ -70,7 +70,7 @@ public class Employee extends Model {
   }
 
   public Employee(String firstName, String lastName, String email, 
-          String phoneNumber, Date hireDate, int jobId, int managerId, 
+          String phoneNumber, Date hireDate, String jobId, int managerId, 
           int salary, int departmentId) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -125,7 +125,7 @@ public class Employee extends Model {
     ps.setString(4, getEmail());
     ps.setString(5, getPhoneNumber());
     ps.setDate(6, getHireDate());
-    ps.setInt(7, getJobId());
+    ps.setString(7, getJobId());
     ps.setInt(8, getSalary());
     ps.setInt(9, getManagerId());
     ps.setInt(10, getDepartmentId());
@@ -211,11 +211,11 @@ public class Employee extends Model {
     this.hireDate = hireDate;
   }
 
-  public int getJobId() {
+  public String getJobId() {
     return jobId;
   }
 
-  public void setJobId(int jobId) {
+  public void setJobId(String jobId) {
     this.jobId = jobId;
   }
 
