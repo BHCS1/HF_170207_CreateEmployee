@@ -139,6 +139,10 @@ public class Employee extends Model {
     return nextId;
   }
 
+  public void setDepartmentId(int departmentId) {
+    this.departmentId = departmentId;
+  }
+
   public void setSalary(int salary) {
     this.salary = salary;
   }

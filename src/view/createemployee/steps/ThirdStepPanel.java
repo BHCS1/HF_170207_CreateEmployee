@@ -20,8 +20,6 @@ import model.Job;
  * @author ferenc
  */
 public class ThirdStepPanel extends StepPanel {
-  private String title;
-  private Employee employee;
   private String[] jobsList, depsList;
   private JComboBox cbJobs, cbDeps;
   private ArrayList<Job> jobList;
@@ -30,9 +28,8 @@ public class ThirdStepPanel extends StepPanel {
 
   public ThirdStepPanel(String title, Employee employee) {
     super(title, employee);
-    this.title = title;
-    this.employee = employee;
-
+    this.employee=employee;
+    initComponents();
   }
   
 
@@ -69,12 +66,11 @@ public class ThirdStepPanel extends StepPanel {
       int depListSize=depList.size();//Department.getAll().size();
       depsList = new String [depListSize];
       for (int i = 0; i < depListSize; i++) {
-        depsList[i]=depList.get(i).toString();//Department.getAll().get(i).toString();
+        depsList[i]= depList.get(i).getName();//Department.getAll().get(i).toString();
       }
     } catch (ClassNotFoundException ex) {
-      System.out.println("?");
-    } catch (SQLException ex) {
-      ex.printStackTrace();
+      ;
+    } catch (SQLException ex) {;
       ;
       }
     
@@ -83,8 +79,9 @@ public class ThirdStepPanel extends StepPanel {
   @Override
   public boolean checking() {
     employee.setJobId(jobList.get(cbJobs.getSelectedIndex()).getId());
- //   employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
-
+    employee.setDepartmentId(depList.get(cbDeps.getSelectedIndex()).getId());
+    System.out.println(employee.getJobId());
+    
     return true;
   }
   

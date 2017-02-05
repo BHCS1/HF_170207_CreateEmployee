@@ -3,13 +3,12 @@ package view.createemployee;
 import view.createemployee.steps.StepPanel;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Employee;
+import view.createemployee.steps.FifthStepPanel;
 import view.createemployee.steps.FirstStepPanel;
 import view.createemployee.steps.FourthStepPanel;
 import view.createemployee.steps.SecondStepPanel;
@@ -37,21 +36,13 @@ public class CreateEmployeeDialog extends JDialog {
   }
 
   private void fillTAbbedPane() {
-    // BALAZS
-    // proba miatt ciklussal feltoltottam
-    /*  1. tájékoztatás a varázsló lépéseiről,
-        2. alapadatok bekérése (név, elérhetőségek),
-        3. részleg kiválasztása,
-        4. munkakör kiválasztása a cégnél lévő össze munkakörből,
-        5. fizetés megadása úgy, hogy azt a munkaköréhez tartozó
-           minimális és maximális fizetés még éppen behatárolja,
-        6. befejezés, ellenőrzés, listázás*/
     
 
     stepPanels.add(new FirstStepPanel("Instructions", employee));
     stepPanels.add(new SecondStepPanel("Person details", employee));
     stepPanels.add(new ThirdStepPanel("Department and job", employee));
     stepPanels.add(new FourthStepPanel("Salary", employee));
+    stepPanels.add(new FifthStepPanel("Summary", employee));
 
   }
 
@@ -122,7 +113,7 @@ public class CreateEmployeeDialog extends JDialog {
       // FINISH BUTTON
       JButton btnFinish=new JButton("Finish");
       btnFinish.setEnabled(false);
-      if(i == (STEPS_NUMBER-1)) {
+      if(i == (STEPS_NUMBER-1) && sp.checking()) {
         btnFinish.setEnabled(true);
         btnFinish.addMouseListener(new MouseAdapter() {
           @Override
@@ -134,9 +125,10 @@ public class CreateEmployeeDialog extends JDialog {
               java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
               employee.setHireDate(sqlDate);
             } catch (SQLException ex) {
-              System.out.println("Hiba"); // BALAZS hibauzenet
+                JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
             } catch (ClassNotFoundException ex) {
-              System.out.println("Hiba");; // BALAZS hibauzenet
+                JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
+
             }
           }
         });

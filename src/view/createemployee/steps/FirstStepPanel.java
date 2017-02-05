@@ -6,13 +6,10 @@ import model.Employee;
 
 
 public class FirstStepPanel extends StepPanel {
-  private String title;
-  private Employee employee;
   
   public FirstStepPanel(String title, Employee employee){
     super(title, employee);
-    this.title = title;
-    this.employee = employee;
+    initComponents();
   }
   
   @Override

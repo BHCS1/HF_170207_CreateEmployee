@@ -20,8 +20,7 @@ import model.Employee;
  * @author ferenc
  */
 public class SecondStepPanel extends StepPanel {
-  private String title;
-  private Employee employee;
+
   private JTextField tfEmail;
   private JTextField tfFirstName;
   private JTextField tfLastName;
@@ -30,6 +29,7 @@ public class SecondStepPanel extends StepPanel {
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
     this.employee=employee;
+    initComponents();
  
 
   }
@@ -76,27 +76,24 @@ public class SecondStepPanel extends StepPanel {
     int i=0;
 //    String email = tfEmail.getText();
 //    String phoneNumber = (String)ftfPhone.getValue();
-////    employee.setFirstName(tfFirstName.getText());
-////    employee.setLastName(tfLastName.getText());
+//    employee.setFirstName(tfFirstName.getText());
+//    employee.setLastName(tfLastName.getText());
 //    
 //    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
 //      i++;
-//      //employee.setEmail(email);
+//      employee.setEmail(email);
 //    }
 //    else {
 //      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 //    }
 //      
 //      if (phoneNumber!= null){
-//        System.out.println(phoneNumber);
 //        i++;
-//        //employee.setPhoneNumber(phoneNumber);
+//        employee.setPhoneNumber(phoneNumber);
 //      }
 //      else
-//        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-//
-//        
-//        
+//        JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
+//    
     return i==0;
             
   }
