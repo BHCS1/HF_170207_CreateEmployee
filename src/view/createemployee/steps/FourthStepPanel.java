@@ -61,8 +61,7 @@ public class FourthStepPanel extends StepPanel {
 
   @Override
   public boolean checking() {
-//    int typedValue=(Integer)tftSalary.getValue();
-//    if (typedValue==10)
+
       return true;
        
 
