@@ -14,7 +14,7 @@ import model.Job;
 
 public class ThirdStepPanel extends StepPanel {
   private String[] jobsList, depsList;
-  private JComboBox cbJobs, cbDeps;
+  private JComboBox cbJobs, cbDeps, cbManagers;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
 
@@ -38,6 +38,11 @@ public class ThirdStepPanel extends StepPanel {
     cbJobs=new JComboBox(jobsList);
     pnJobs.add(cbJobs);
     pn.add(pnJobs);
+    JPanel pnManagers= new JPanel();
+    pnManagers.add(new JLabel("Choose manager:      "));
+    cbManagers=new JComboBox(depsList);
+    pnManagers.add(cbManagers);
+    pn.add(pnManagers);
     add(pn);
   }
   

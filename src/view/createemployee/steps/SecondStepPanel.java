@@ -1,4 +1,4 @@
-
+ 
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
@@ -84,7 +84,7 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
-    if (email.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")) {
+    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
       i++;
       employee.setEmail(email);
     }
