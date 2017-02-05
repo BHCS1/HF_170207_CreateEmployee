@@ -7,11 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.Employee;
 
@@ -35,7 +31,7 @@ public class View extends JFrame implements ActionListener {
 
   public View() {
     super("Data of the employees");
-    setSize(800, 600);
+    setSize(800, 400);
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     lMessage.setFont(new Font("Ariel", Font.BOLD, 16));
     lMessage.setForeground(Color.GREEN);
@@ -96,17 +92,17 @@ public class View extends JFrame implements ActionListener {
     lMessage.setText(" ");
     timerMessage.stop();
     if (e.getSource() == btRegister) {
-      Employee employee = new Employee();
-      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employee);
+      Integer employeeId = -1;
+      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employeeId);
       ced.setVisible(true);
-      if (employee.getID() > 0) {
+      if (employeeId > 0) {
         try {
           EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
           setEmployees(etm);
           spTable.revalidate();
           spTable.repaint();
           int index = 0;
-          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employee.getID())
+          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employeeId)
             index++;
           if (index < tEmployees.getRowCount()) {
             tEmployees.setRowSelectionInterval(index, index);

@@ -8,12 +8,12 @@ import static model.Model.connection;
 
 public class Job extends Model {
   
-  private int id;
+  private String id;
   private String title;
   private int minSalary;
   private int maxSalary;
 
-  public Job(int id, String title, int minSalary, int maxSalary) {
+  public Job(String id, String title, int minSalary, int maxSalary) {
     this.id = id;
     this.title = title;
     this.minSalary = minSalary;
@@ -36,7 +36,7 @@ public class Job extends Model {
     while (result.next()) {
       list.add(
         new Job(
-          result.getInt("id"),
+          result.getString("id"),
           result.getString("jobTitle"),
           result.getInt("minSalary"),
           result.getInt("maxSalary")
@@ -48,11 +48,11 @@ public class Job extends Model {
     return list;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

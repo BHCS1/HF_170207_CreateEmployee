@@ -1,6 +1,5 @@
 *.class
 nbproject/private
-build
 .idea/
 out/
 /*.iml
