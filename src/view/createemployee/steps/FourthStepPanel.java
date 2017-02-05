@@ -7,21 +7,18 @@ package view.createemployee.steps;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import javax.swing.BoxLayout;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 import model.Employee;
 
 public class FourthStepPanel extends StepPanel {
   
-  private JFormattedTextField tftSalary= new JFormattedTextField();
+  private JTextField tfSalary;
   private JPanel pnCheck;
   
   public FourthStepPanel(String title, Employee employee) {
@@ -43,10 +40,9 @@ public class FourthStepPanel extends StepPanel {
     formatter.setValueClass(Integer.class);
     formatter.setAllowsInvalid(false);
     formatter.setCommitsOnValidEdit(false);
-    tftSalary= new JFormattedTextField(formatter);
-    tftSalary.setFocusLostBehavior(JFormattedTextField.PERSIST);
-    tftSalary.setColumns(8);
-    pnSalary.add(tftSalary);
+    tfSalary= new JTextField();
+    tfSalary.setColumns(8);
+    pnSalary.add(tfSalary);
     pn.add(pnSalary, BorderLayout.NORTH);
     pnCheck = new JPanel();
     pnCheck.add(new JLabel());
@@ -54,14 +50,15 @@ public class FourthStepPanel extends StepPanel {
     add(pn);
     
   }
-  
+
   
 
   @Override
   public boolean checking() {
-      int typedValue= (Integer)tftSalary.getValue();
-      if (typedValue<minSalary || typedValue>maxSalary) {
-        JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+      int typedValue= Integer.parseInt(tfSalary.getText());
+      System.out.println(typedValue);
+      if ((typedValue<minSalary || typedValue>maxSalary)) {
+        JOptionPane.showMessageDialog(this, "Invalid sum! Please select from this interval: "+ minSalary+"-"+ maxSalary+".", "Information Message", JOptionPane.INFORMATION_MESSAGE);
         return false;
       }
         else

@@ -37,7 +37,6 @@ public class ThirdStepPanel extends StepPanel {
   @Override
   public void initComponents() {
     datas();
-
     JPanel pn=new JPanel();
     pn.setLayout(new FlowLayout(0));
     JPanel pnDeps= new JPanel();
@@ -83,7 +82,6 @@ public class ThirdStepPanel extends StepPanel {
     minSalary=jobList.get(cbJobs.getSelectedIndex()).getMinSalary();
     maxSalary=jobList.get(cbJobs.getSelectedIndex()).getMaxSalary();
     System.out.println(minSalary+" "+maxSalary);
-    
     return true;
   }
   

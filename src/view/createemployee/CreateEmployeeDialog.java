@@ -42,7 +42,7 @@ public class CreateEmployeeDialog extends JDialog {
     stepPanels.add(new SecondStepPanel("Person details", employee));
     stepPanels.add(new ThirdStepPanel("Department and job", employee));
     stepPanels.add(new FourthStepPanel("Salary", employee));
-  //  stepPanels.add(new FifthStepPanel("Summary", employee));
+    stepPanels.add(new FifthStepPanel("Summary", employee));
 
   }
 
@@ -93,7 +93,7 @@ public class CreateEmployeeDialog extends JDialog {
         btNext.addMouseListener(new MouseAdapter() {
           @Override
           public void mouseClicked(MouseEvent e) {
-            if(((JButton)e.getSource()).isEnabled() && sp.checking())
+            if(((JButton)e.getSource()).isEnabled() && sp.checking()  )
              tb.setSelectedIndex(nextStepPanelIndex);
           }
         });
