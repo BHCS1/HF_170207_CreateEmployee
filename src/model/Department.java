@@ -54,12 +54,15 @@ public class Department extends Model {
             "FROM employees e1 " +
             "WHERE employee_id IN " +
             "(SELECT DISTINCT manager_id FROM employees e2 " +
-            "WHERE e2.department_id=50 AND e1.department_id=e2.department_id) " +
+            "WHERE e2.department_id=? AND e1.department_id=e2.department_id) " +
             "ORDER BY first_name, last_name";
 
     PreparedStatement ps = connection.prepareStatement(query);
+    
+    ps.setInt(1, this.id);
+    
     ResultSet result = ps.executeQuery();
-
+    
     while (result.next()) {
       list.add(
               new Employee(
