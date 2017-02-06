@@ -22,7 +22,7 @@ public class FirstStepPanel extends StepPanel {
 
     add(pn);
 
-    instructions.setFont(new Font("Arial",0,18));
+    instructions.setFont(new Font("Arial",0,16));
 
   }
   
