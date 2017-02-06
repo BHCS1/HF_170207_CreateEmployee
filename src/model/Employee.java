@@ -237,5 +237,19 @@ public class Employee extends Model {
     return firstName+" "+lastName;
   }
   
+  public static boolean emailExists(String email) throws SQLException, ClassNotFoundException {
+    connect();
+    
+    PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) as c FROM employees WHERE email=?");
+    ps.setString(1, email);
+    
+    ResultSet result = ps.executeQuery();
+    result.next();
+
+    disconnect();
+    
+    return result.getInt("c") > 0;
+  }
+  
   
 }
