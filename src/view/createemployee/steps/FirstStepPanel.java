@@ -2,6 +2,7 @@ package view.createemployee.steps;
 
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import model.Employee;
 
 public class FirstStepPanel extends StepPanel {
@@ -13,12 +14,15 @@ public class FirstStepPanel extends StepPanel {
   
   @Override
   public void initComponents() {
-    JLabel instructions = new JLabel("<html>1. New employee's first name and last name without any digit character<br>"
-            + "2. Select the department and the job title<br>"
-            + "3. Set the employee's salary between the given limits</html>");
-    add(instructions);
+    JPanel pn = new JPanel();
+    JLabel instructions = new JLabel("<html><li>New employee's first name and last name without <br>any digit character</li><br>"
+            + "<li>Select the department and the job title</li><br>"
+            + "<li>Set the employee's salary between the given limits</li></html>");
+    pn.add(instructions);
 
-    instructions.setFont(new Font("Arial",0,18));
+    add(pn);
+
+    instructions.setFont(new Font("Arial",0,16));
 
   }
   

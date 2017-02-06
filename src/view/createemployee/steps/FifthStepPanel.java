@@ -18,6 +18,7 @@ public class FifthStepPanel extends StepPanel {
         lbInstructionText.setText("<html><br>Employee's name: "+employee.getFirstName()+" "+employee.getLastName()+"<br><br>Employees's email: "+
                 employee.getEmail()+"<br><br>Employee's phone number: "+employee.getPhoneNumber()+
                 "<br><br>Selected department: "+depName+"<br><br>Selected job title: "+ jobTile+
+                "<br><br>Selected manager's name: "+managerName+
                 "<br><br>Employee's salary: $"+employee.getSalary()+"</html>");
       }
     });

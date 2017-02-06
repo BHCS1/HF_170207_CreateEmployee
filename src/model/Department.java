@@ -11,20 +11,28 @@ public class Department extends Model {
 
   private int id;
   private String name;
+  private int managerId;
 
   public Department(int id, String name) {
     this.id = id;
     this.name = name;
   }
 
+  public Department(int id, String name, int managerId) {
+    this.id = id;
+    this.name = name;
+    this.managerId = managerId;
+  }
+
   public static ArrayList<Department> getAll() throws ClassNotFoundException, SQLException {
     connect();
     ArrayList<Department> list = new ArrayList<>();
 
-    String query = "SELECT department_name AS depName, "
-            + "department_id AS id "
-            + "FROM departments "
-            + "ORDER BY depName";
+    String query = "SELECT department_name AS depName, " +
+            "department_id AS id, " +
+            "manager_id AS managerId " +
+            "FROM departments " +
+            "ORDER BY depName";
 
     ResultSet result = connection.createStatement().executeQuery(query);
 
@@ -32,7 +40,8 @@ public class Department extends Model {
       list.add(
         new Department(
           result.getInt("id"),
-          result.getString("depName")
+          result.getString("depName"),
+          result.getInt("managerId")
         )
       );
     }
@@ -49,12 +58,13 @@ public class Department extends Model {
             "e1.employee_id AS id, " +
             "e1.first_name AS firstName, " +
             "e1.last_name AS lastName, " +
-            "(SELECT department_name FROM departments WHERE department_id=e1.department_id) AS depName, " +
+            "department_name depName, " +
             "e1.salary " +
-            "FROM employees e1 " +
-            "WHERE employee_id IN " +
+            "FROM employees e1, departments d " +
+            "WHERE d.department_id=e1.department_id " +
+            "AND employee_id IN " +
             "(SELECT DISTINCT manager_id FROM employees e2 " +
-            "WHERE e2.department_id=? AND e1.department_id=e2.department_id) " +
+            "WHERE e2.department_id=?) " +
             "ORDER BY first_name, last_name";
 
     PreparedStatement ps = connection.prepareStatement(query);

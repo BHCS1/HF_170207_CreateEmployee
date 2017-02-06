@@ -2,7 +2,12 @@
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,6 +22,8 @@ public class SecondStepPanel extends StepPanel {
   private JTextField tfFirstName;
   private JTextField tfLastName;
   private JFormattedTextField ftfPhone;
+  private final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
   
   public SecondStepPanel(String title, Employee employee) {
     super(title, employee);
@@ -66,12 +73,13 @@ public class SecondStepPanel extends StepPanel {
     String phoneNumber = (String)ftfPhone.getValue();
     String fName = tfFirstName.getText();
     String lName = tfLastName.getText();
-
+    
     if (fName.matches(("[a-zA-Z|á|é|í|ö|ó|ú|ü|ű|Á|É|Í|Ö|Ó|Ú|Ű|Ü]+"))) {
       i++;
       fName=fName.substring(0, 1).toUpperCase() + fName.substring(1);
       employee.setFirstName(fName);
       tfFirstName.setText(fName);
+
     }
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
@@ -84,12 +92,28 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
-    if (email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
-      i++;
-      employee.setEmail(email);
-    }
-    else {
-      JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+    try {
+      if (!Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+        i++;
+      }
+      else {
+        JOptionPane.showMessageDialog(this, "Existing email, please type another email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+      }
+      if (emailValidate(email)){
+        i++;
+        employee.setEmail(email);
+      }
+      else
+        JOptionPane.showMessageDialog(this, "Not a valid email, please try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+        System.exit(0);
+    } catch (ClassNotFoundException ex) {
+        JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+        System.exit(0);
     }
       
     if (phoneNumber!= null){
@@ -99,7 +123,14 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
     
-    return i==4;
+    return i==5;
   }
+  
+  boolean emailValidate(String email){
+    Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+    return matcher.find();
+    
+  }
+  
   
 }

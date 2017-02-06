@@ -233,7 +233,24 @@ public class Employee extends Model {
 
   @Override
   public String toString() {
-    return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", managerId=" + managerId + ", salary=" + salary + ", departmentId=" + departmentId + ", departmentName=" + departmentName + ", department=" + department + '}';
+    //return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", hireDate=" + hireDate + ", jobId=" + jobId + ", managerId=" + managerId + ", salary=" + salary + ", departmentId=" + departmentId + ", departmentName=" + departmentName + ", department=" + department + '}';
+    return firstName+" "+lastName;
+  }
+  
+  public static boolean emailExists(String email) throws SQLException, ClassNotFoundException {
+    connect();
+    
+    PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) as c FROM employees WHERE email=?");
+    ps.setString(1, email);
+    
+    ResultSet result = ps.executeQuery();
+    result.next();
+
+    boolean res = result.getInt("c") > 0;
+    
+    disconnect();
+    
+    return res;
   }
   
   
