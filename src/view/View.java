@@ -45,7 +45,12 @@ public class View extends JFrame implements ActionListener {
     centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
     tEmployees.addMouseListener(new JTableButtonMouseListener(tEmployees));
     tEmployees.setAutoCreateRowSorter(true);
-    btRegister.addActionListener(this);
+    btRegister.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        createEmployeeClick();
+      }
+    });
     lookAndFeel();
     setResizable(false);
     setLocationRelativeTo(this);
@@ -86,38 +91,42 @@ public class View extends JFrame implements ActionListener {
     tEmployees.getColumnModel().getColumn(3).setCellRenderer(buttonRenderer);
     tEmployees.getColumnModel().getColumn(3).setPreferredWidth(10);
   }
+  
+  private void createEmployeeClick() {
+    lMessage.setText(" ");
+    if (timerMessage.isRunning())
+      timerMessage.stop();
+    Employee employee = new Employee();
+    CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employee);
+    ced.setVisible(true);
+    if (employee.getID() > 0) {
+      try {
+        EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
+        setEmployees(etm);
+        spTable.revalidate();
+        spTable.repaint();
+        int index = 0;
+        while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employee.getID())
+          index++;
+        if (index < tEmployees.getRowCount()) {
+          tEmployees.setRowSelectionInterval(index, index);
+          lMessage.setText("Employee registered successfully!  ");
+          timerMessage.start();
+        }
+      } catch (ClassNotFoundException ex) {
+        JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+      } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(ex.getMessage());
+      }
+    }
+  }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     lMessage.setText(" ");
     timerMessage.stop();
-    if (e.getSource() == btRegister) {
-      Employee employee = new Employee();
-      CreateEmployeeDialog ced = new CreateEmployeeDialog(this, employee);
-      ced.setVisible(true);
-      if (employee.getID() > 0) {
-        try {
-          EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
-          setEmployees(etm);
-          spTable.revalidate();
-          spTable.repaint();
-          int index = 0;
-          while (index < tEmployees.getRowCount() && etm.getRow(index).getID() != employee.getID())
-            index++;
-          if (index < tEmployees.getRowCount()) {
-            tEmployees.setRowSelectionInterval(index, index);
-            lMessage.setText("Employee registered successfully!  ");
-            timerMessage.start();
-          }
-        } catch (ClassNotFoundException ex) {
-          JOptionPane.showMessageDialog(null, "Most probably misssing ojdbc driver!", "Error", JOptionPane.ERROR_MESSAGE);
-          System.out.println(ex.getMessage());
-        } catch (SQLException ex) {
-          JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
-          System.out.println(ex.getMessage());
-        }
-      }
-    }
   }
 
   private static class JTableButtonMouseListener extends MouseAdapter {
