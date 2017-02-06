@@ -2,16 +2,12 @@
 package view.createemployee.steps;
 
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.scene.control.ComboBox;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -23,11 +19,10 @@ import model.Job;
 import static view.createemployee.steps.StepPanel.minSalary;
 
 public class ThirdStepPanel extends StepPanel {
-  private String[] jobsList, depsList;
+  private String[] jobsList, depsList, mansList;
   private JComboBox cbJobs, cbDeps, cbManagers;
   private ArrayList<Job> jobList;
   private ArrayList<Department> depList;
-  private Department department;
   private ArrayList<Employee> manList=null;
 
   public ThirdStepPanel(String title, Employee employee) {
@@ -57,7 +52,9 @@ public class ThirdStepPanel extends StepPanel {
       cbm.removeAllElements();
       
       manList = choosedDepartment.getManagers(); // new ArrayList<>();
-      
+      if (manList.size()==0)
+        cbm.addElement("Steven King");
+             
       for (Employee manager : manList) {
         cbm.addElement(manager);
       }
@@ -94,6 +91,7 @@ public class ThirdStepPanel extends StepPanel {
     try {
       depList=Department.getAll();
       jobList=Job.getAll();
+      manList=Employee.getAll();
       
       int jobListSize=jobList.size();
       jobsList = new String [jobListSize];
@@ -106,6 +104,12 @@ public class ThirdStepPanel extends StepPanel {
 
       for (int i = 0; i < depListSize; i++) {
         depsList[i]= depList.get(i).getName();
+      }
+      int manListSize=manList.size();
+      mansList = new String [manListSize];
+
+      for (int i = 0; i < manListSize; i++) {
+        mansList[i]= manList.get(i).getName();
       }
 
     } catch (ClassNotFoundException ex) {
@@ -127,18 +131,28 @@ public class ThirdStepPanel extends StepPanel {
   public boolean checking() {
     int cbDepsSelectedIndex=cbDeps.getSelectedIndex();
     int cbJobsSelectedIndex=cbJobs.getSelectedIndex();
+    int cbManagersSelectedIndex=cbManagers.getSelectedIndex();
     
     Department selectedDepartment=depList.get(cbDepsSelectedIndex);
     Job selectedJob=jobList.get(cbJobsSelectedIndex);
     
+    if (manList.size()==0) {
+      employee.setManagerId(100);
+      managerName="Steven King";
+    }
+    
+    else {
+      Employee selectedManager =manList.get(cbManagersSelectedIndex);
+      employee.setManagerId(selectedManager.getID());
+      managerName=manList.get(cbManagersSelectedIndex).getName();
+    }
+    
     employee.setJobId(selectedJob.getId());
     employee.setDepartmentId(selectedDepartment.getId());
-    
+
     depName=selectedDepartment.getName();
     jobTile=selectedJob.getTitle();
-    
-//    int managerId=selectedDepartment.getManagerId();
-    employee.setManagerId(100);
+
     
     minSalary=(Integer)selectedJob.getMinSalary();
     maxSalary=(Integer)selectedJob.getMaxSalary();
