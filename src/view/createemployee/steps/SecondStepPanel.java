@@ -93,13 +93,19 @@ public class SecondStepPanel extends StepPanel {
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
     try {
-      if (emailValidate(email) && !Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+      if (!Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+        i++;
+      }
+      else {
+        JOptionPane.showMessageDialog(this, "Existing email, please type another email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+      }
+      if (emailValidate(email)){
         i++;
         employee.setEmail(email);
       }
-      else {
-        JOptionPane.showMessageDialog(this, "Please type a valid email address or existing email", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-      }
+      else
+        JOptionPane.showMessageDialog(this, "Not a valid email, please try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
         System.out.println(ex.getMessage());
@@ -117,7 +123,7 @@ public class SecondStepPanel extends StepPanel {
     else
       JOptionPane.showMessageDialog(this, "Please type a valid phone number!", "Information Message", JOptionPane.INFORMATION_MESSAGE);  
     
-    return i==4;
+    return i==5;
   }
   
   boolean emailValidate(String email){
