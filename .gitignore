@@ -1,7 +1,8 @@
 *.class
-nbproject/private
+nbproject/private/
+build/
 .idea/
 out/
 /*.iml
 build.xml
-build
+

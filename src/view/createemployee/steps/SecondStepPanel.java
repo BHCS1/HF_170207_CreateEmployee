@@ -93,15 +93,15 @@ public class SecondStepPanel extends StepPanel {
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
     try {
-      if (!Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
-        i++;
-      }
-      else {
-        JOptionPane.showMessageDialog(this, "Existing email, please type another email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
-      }
       if (emailValidate(email)){
         i++;
-        employee.setEmail(email);
+        if (!Employee.emailExists(email) ) {
+          i++;
+          employee.setEmail(email);
+        }
+        else {
+          JOptionPane.showMessageDialog(this, "Existing email, please type another email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+        }
       }
       else
         JOptionPane.showMessageDialog(this, "Not a valid email, please try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);

@@ -1,3 +1,5 @@
+package controller;
+
 
 import model.*;
 import view.View;
@@ -8,14 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class Controller implements ActionListener {
+public class Controller {
     private View view;
     private EmployeeTableModel etm = null;
+    private static ActionListener al;
 
     public Controller() {
         this.view=new View();
+        al = new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            TableButton bt = (TableButton) e.getSource();
+            Employee employee = etm.getRow(bt.getEmployeeIndex());
+            view.showDialog(employee, bt.getButtonIndex());
+          }
+        };
         try {
-          etm = new EmployeeTableModel(Employee.getAll(), this);
+          etm = new EmployeeTableModel(Employee.getAll(), al);
           view.setEmployees(etm);
           view.setVisible(true);
         } catch (ClassNotFoundException e) {
@@ -32,11 +43,9 @@ public class Controller implements ActionListener {
     public static void main(String[] args) {
         new Controller();
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      TableButton bt = (TableButton) e.getSource();
-        Employee employee = etm.getRow(bt.getEmployeeIndex());
-        view.showDialog(employee, bt.getButtonIndex());
+    
+    public static ActionListener getAl() {
+      return al;
     }
+    
 }
