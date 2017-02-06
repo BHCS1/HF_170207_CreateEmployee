@@ -98,7 +98,7 @@ public class SecondStepPanel extends StepPanel {
         employee.setEmail(email);
       }
       else {
-        JOptionPane.showMessageDialog(this, "Please type a valid email address!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Please type a valid email address or existing email", "Information Message", JOptionPane.INFORMATION_MESSAGE);
       }
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Querying data failed!", "Error", JOptionPane.ERROR_MESSAGE);
