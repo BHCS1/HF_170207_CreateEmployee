@@ -246,9 +246,11 @@ public class Employee extends Model {
     ResultSet result = ps.executeQuery();
     result.next();
 
+    boolean res = result.getInt("c") > 0;
+    
     disconnect();
     
-    return result.getInt("c") > 0;
+    return res;
   }
   
   
