@@ -93,7 +93,7 @@ public class SecondStepPanel extends StepPanel {
       JOptionPane.showMessageDialog(this, "Name contains digit or null, try again!", "Information Message", JOptionPane.INFORMATION_MESSAGE);
 
     try {
-      if (emailValidate(email) && Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
+      if (emailValidate(email) && !Employee.emailExists(email) ) {//(email.matches("^[A-Za-z0-9_.]+[@][A-Za-z.]+$")) {
         i++;
         employee.setEmail(email);
       }
