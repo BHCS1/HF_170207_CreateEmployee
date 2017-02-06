@@ -1,5 +1,6 @@
 package view;
 
+import controller.Controller;
 import view.createemployee.CreateEmployeeDialog;
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +20,9 @@ public class View extends JFrame implements ActionListener {
   private JPanel pnLeft = new JPanel();
   private JButton btRegister = new JButton("Register new employee");
   private JLabel lMessage = new JLabel(" ", SwingConstants.RIGHT);
-  Timer timerMessage = new Timer(3000, this);
-  DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-  DefaultTableCellRenderer buttonRenderer = new DefaultTableCellRenderer() {
+  private Timer timerMessage = new Timer(3000, this);
+  private DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+  private DefaultTableCellRenderer buttonRenderer = new DefaultTableCellRenderer() {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
       return (TableButton) value;
@@ -101,7 +102,7 @@ public class View extends JFrame implements ActionListener {
     ced.setVisible(true);
     if (employee.getID() > 0) {
       try {
-        EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), this);
+        EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), Controller.getAl());
         setEmployees(etm);
         spTable.revalidate();
         spTable.repaint();
