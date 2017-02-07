@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class Controller {
     private View view;
-    private EmployeeTableModel etm = null;
+    private static EmployeeTableModel etm = null;
     private static ActionListener al;
 
     public Controller() {
@@ -46,6 +46,14 @@ public class Controller {
     
     public static ActionListener getAl() {
       return al;
+    }
+
+    public static EmployeeTableModel getEtm() {
+      return etm;
+    }
+
+    public static void setEtm(EmployeeTableModel newEtm) {
+      etm = newEtm;
     }
     
 }

@@ -103,6 +103,7 @@ public class View extends JFrame implements ActionListener {
     if (employee.getID() > 0) {
       try {
         EmployeeTableModel etm = new EmployeeTableModel(Employee.getAll(), Controller.getAl());
+        Controller.setEtm(etm);
         setEmployees(etm);
         spTable.revalidate();
         spTable.repaint();
