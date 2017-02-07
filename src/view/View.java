@@ -111,6 +111,29 @@ public class View extends JFrame implements ActionListener {
           index++;
         if (index < tEmployees.getRowCount()) {
           tEmployees.setRowSelectionInterval(index, index);
+          if (tEmployees.getParent() instanceof JViewport) {
+            JViewport viewport = (JViewport)tEmployees.getParent();
+            // view dimension
+            Dimension dim = viewport.getExtentSize();
+            // cell dimension
+            Dimension dimOne = new Dimension(0,0);
+
+            // This rectangle is relative to the table where the
+            // northwest corner of cell (0,0) is always (0,0).
+            Rectangle rect = tEmployees.getCellRect(index, 0, true);
+            Rectangle rectOne;
+            if (index+1<tEmployees.getRowCount()) {
+                rectOne = tEmployees.getCellRect(index+1, 1, true);
+                dimOne.width=rectOne.x-rect.x;
+                dimOne.height=rectOne.y-rect.y;
+            }
+
+            // '+ veiw dimension - cell dimension' to set first selected row on the top
+
+            rect.setLocation(rect.x+dim.width-dimOne.width, rect.y+dim.height-dimOne.height);
+
+            tEmployees.scrollRectToVisible(rect);
+          }
           lMessage.setText("Employee registered successfully!  ");
           timerMessage.start();
         }
